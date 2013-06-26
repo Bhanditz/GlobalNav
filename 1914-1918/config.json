@@ -1,3 +1,37 @@
 {
-	"config" : true
+	"html" : {
+		"row1"   : {
+			"left"  : ["Home", "Explore", "Contribute", "Events"],
+			"right" : ["Register / Login",
+				{
+					"title": "Choose language",
+					"items":["English", "Danish", "Dutch", "French", "German", "Greek", "Italian", "Slovakian"]
+				}
+			]
+		}
+	},
+	
+	"js" : {
+		"scripts" : [		
+		   "scripts/other/custom.modernizr.js",
+		   "scripts/foundation/foundation.js",
+       	   "scripts/foundation/foundation.alerts.js",
+    	   "scripts/foundation/foundation.clearing.js",
+    	   "scripts/foundation/foundation.cookie.js",
+    	   "scripts/foundation/foundation.dropdown.js",
+    	   "scripts/foundation/foundation.forms.js",
+    	   "scripts/foundation/foundation.interchange.js",
+    	   "scripts/foundation/foundation.joyride.js",
+    	   "scripts/foundation/foundation.magellan.js",
+    	   "scripts/foundation/foundation.orbit.js",
+    	   "scripts/foundation/foundation.placeholder.js",
+    	   "scripts/foundation/foundation.reveal.js",
+    	   "scripts/foundation/foundation.section.js",
+    	   "scripts/foundation/foundation.topbar.js"
+		]
+	},
+	
+	"css" : {
+		"stylesheets" : ["styles/style.css"]
+	}
 }
