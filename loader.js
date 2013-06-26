@@ -7,7 +7,7 @@ var globalNav = function(){
     	$.each(config.stylesheets, function(i, stylesheet){
         	$('head').append('<link rel="stylesheet" href="' + stylesheet + '"/>');    		
     	});
-    }
+    };
     
     var initHtml = function(config){
     	var nav = $('<nav class="top-bar container">').prependTo('body');
@@ -73,14 +73,34 @@ var globalNav = function(){
     return {
         init:function(config){
         	$(document).ready(function(){
+        		
+        		
+        		$.ajax({
+        			  url: config,
+        			  dataType: 'json',
+        			  success: function(data) {
+      	        		initCSS(data.css);
+    	                initHtml(data.html);
+    	                initJS(data.js);
+            		 }
+        		})
+
+           .fail(
+        		function(e) {
+        			console.log( "Config error [" + config + "]: " + e.statusText );
+        		}
+        );
+            	
+        		
+        	/*
         		$.getJSON(config, function(data) {
 	        		initCSS(data.css);
 	                initHtml(data.html);
 	                initJS(data.js);
         		}).fail(function(e) { console.log( "Config error [" + config + "]: " + e.statusText ); })
+        		*/
         	});
         }
     }
 }();
-
 
