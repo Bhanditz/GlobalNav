@@ -71,37 +71,19 @@ var globalNav = function(){
     }
     
     return {
-        init:function(config){
+    	init: function(data){
+  		  initCSS(data.css);
+          initHtml(data.html);
+          initJS(data.js);
+    	},
+        load:function(config){
         	$(document).ready(function(){
-        		
-        		
-        		$.ajax({
-        			  url: config,
-        			  dataType: 'json',
-        			  beforeSend: function ( xhr ) {
-        				  xhr.overrideMimeType("text/plain; charset=x-user-defined");
-        			  },
-        			  success: function(data) {
-      	        		initCSS(data.css);
-    	                initHtml(data.html);
-    	                initJS(data.js);
-            		 }
-        		})
-
-           .fail(
-        		function(e) {
-        			console.log( "Config error [" + config + "]: " + e.statusText );
-        		}
-        );
-            	
-        		
-        	/*
-        		$.getJSON(config, function(data) {
-	        		initCSS(data.css);
-	                initHtml(data.html);
-	                initJS(data.js);
-        		}).fail(function(e) { console.log( "Config error [" + config + "]: " + e.statusText ); })
-        		*/
+        		$.getJSON(config + "?callback=?")
+        		  .fail(
+        		    function(e){
+        		      console.log( "Config error [" + config + "]: " + e.statusText + "  " + JSON.stringify(e) );
+        		    }
+        		  );
         	});
         }
     }
