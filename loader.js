@@ -78,6 +78,9 @@ var globalNav = function(){
         		$.ajax({
         			  url: config,
         			  dataType: 'json',
+        			  beforeSend: function ( xhr ) {
+        				  xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        			  },
         			  success: function(data) {
       	        		initCSS(data.css);
     	                initHtml(data.html);
