@@ -32,8 +32,6 @@
 	},
 	
 	"css" : {
-		/* "stylesheets" : ["styles/style.css"] */
-		"stylesheets" : ["styles/app.css"]
-		
+		"stylesheets" : ["styles/app.css"]		
 	}
 }
