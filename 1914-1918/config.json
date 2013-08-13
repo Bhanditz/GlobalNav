@@ -2,11 +2,142 @@ globalNav.init(
 {
 	"html" : {
 		"row1"   : {
-			"left"  : ["Home", "Explore", "Contribute", "Events"],
+				
+			"left"  : [
+				{"label" : "Home",       "href" : "test-global-nav.html"},
+				{"label" : "Explore",    "href" : "test-global-nav-explore.html"},
+				{"label" : "Contribute", "href" : "test-global-nav-contribute.html"},
+				{"label" : "Events",     "href" : "test-global-nav-events.html"}
+			],
+			
+			
+			
 			"right" : ["Register / Login",
 				{
 					"title": "Choose language",
-					"items":["English", "Danish", "Dutch", "French", "German", "Greek", "Italian", "Slovakian"]
+					"items":[
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "English",
+								"it" : "Inglese"
+							},
+							"value" : "en"		
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Danish",
+								"it" : "Danese"
+							},
+							"value" : "dk"		
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Dutch",
+								"it" : "Olandese"
+							},
+							"value" : "nl"		
+						},
+						
+						
+						
+						{
+							"type" : "submenu",
+							
+							"title": "Choose a dialect",
+							"items":[
+								{
+									"type" : "item",
+									"label" : {
+										"en" : "Correct",
+										"it" : "Corretto"
+									},
+									"value" : "cr"
+								},
+								{
+									"type" : "item",
+									"label" : {
+										"en" : "American",
+										"it" : "Americano"
+									},
+									"value" : "us"
+								},
+								
+								{
+									"type" : "submenu",
+									
+									"title": "Choose a state dialect",
+									"items":[
+										{
+											"type" : "item",
+											"label" : {
+												"en" : "Texan",
+												"it" : "Texano"
+											},
+											"value" : "tx"
+										},
+										{
+											"type" : "item",
+											"label" : {
+												"en" : "New Jersey",
+												"it" : "Nuovo Jersey"
+											},
+											"value" : "nj"
+										}		
+									]
+								}
+									
+							]
+						},
+
+
+						
+						
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "French",
+								"it" : "Francese"
+							},
+							"value" : "fr"		
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "German",
+								"it" : "Tedesco"
+							},
+							"value" : "de"		
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Greek",
+								"it" : "Greco"
+							},
+							"value" : "gr"		
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Italian",
+								"it" : "Italiano"
+								
+							},
+							"value" : "it"		
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Slovakian",
+								"it" : "Slovaca"
+							},
+							"value" : "sl"		
+						}
+
+					]
 				}
 			]
 		}
@@ -14,26 +145,22 @@ globalNav.init(
 	
 	"js" : {
 		"scripts" : [		
-		   "http://test.portal2.eanadev.org/GlobalNav/scripts/other/custom.modernizr.js",
-		   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.js",
-       	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.alerts.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.clearing.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.cookie.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.dropdown.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.forms.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.interchange.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.joyride.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.magellan.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.orbit.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.placeholder.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.reveal.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.section.js",
-    	   "http://test.portal2.eanadev.org/GlobalNav/scripts/foundation/foundation.topbar.js"
+		   "http://localhost/europeana/GlobalNav/scripts/EuAccessibility.js",
+		   "http://localhost/europeana/GlobalNav/scripts/EuGlobalMenu.js"
 		]
 	},
 	
 	"css" : {
-		"stylesheets" : ["http://test.portal2.eanadev.org/GlobalNav/styles/app.css"]		
-	}
+		
+		"stylesheets" : [
+			"http://localhost/europeana/GlobalNav/styles/application.css",
+			"http://localhost/europeana/GlobalNav/styles/EuGlobalMenu.css"
+		]
+		
+	},
+	
+
+	
+	
 }
 );
