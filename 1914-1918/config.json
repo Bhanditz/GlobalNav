@@ -21,14 +21,69 @@ globalNav.init(
 							
 							
 							"items" : [
-								{
-									"type" : "item",
-									"label" : {
-										"en" : "applications...",
-										"it" : "applications..."
-									},
-									"value" : "open-global-menu"		
-								}
+						        {
+						            "type": "item",
+						            "label": {
+						                "en": "Exhibitions",
+						                "it": "Mostri"
+						            },
+						            "value": "exhibitions",
+						            "url": "test-global-nav-exhibitions.html"
+						        },
+						        {
+						            "type": "item",
+						            "label": {
+						                "en": "Portal",
+						                "it": "Portale"
+						            },
+						            "value": "portal",
+						            "url": "test-global-nav-portal.html"
+						        },
+						        {
+						            "type": "item",
+						            "label": {
+						                "en": "1914-1918",
+						                "it": "1914-1918"
+						            },
+						            "value": "1418",
+						            "url": "test-global-nav-1418.html"
+						        },
+						        {
+						            "type": "item",
+						            "label": {
+						                "en": "Remix",
+						                "it": "Remix"
+						            },
+						            "value": "remix",
+						            "url": "test-global-nav-remix.html"
+						        },
+						        {
+						            "type": "hMenu",
+						            "title": {
+						                "en": "API",
+						                "it": "API"
+						            },
+						            "items": [
+						                {
+						                    "type": "item",
+						                    "label": {
+						                        "en": "Get an API Key",
+						                        "it": "Ottiene una chiave"
+						                    },
+						                    "value": "api-key",
+						                    "url": "test-global-nav-api-key.html"
+						                },
+						                {
+						                    "type": "item",
+						                    "label": {
+						                        "en": "Find out more",
+						                        "it": "Leggi"
+						                    },
+						                    "value": "api-docs",
+						                    "url": "test-global-nav-api-docs.html"
+						                }
+						            ]
+						        }
 							]
 						},
 					
@@ -42,85 +97,16 @@ globalNav.init(
 							},
 							"url" : "test-global-nav.html"		
 						},
-						{
 						
-							"type" : "submenu",							
-							"title": {
-								"en" : "Explore",
-								"it" : "Esplora"
-							},
-							"items":[
-								{
-									"type" : "item",
-									"label" : {
-										"en" : "Exhibitions",
-										"it" : "Mostri"
-									},
-									"value" : "exhibitions"
-								},
-								{
-									"type" : "item",
-									"label" : {
-										"en" : "Portal",
-										"it" : "Portale"
-									},
-									"value" : "portal"
-								},
-								{
-									"type" : "item",
-									"label" : {
-										"en" : "1914-1918",
-										"it" : "1914-1918"
-									},
-									"value" : "1418"
-								},
-								{
-									"type" : "item",
-									"label" : {
-										"en" : "Remix",
-										"it" : "Remix"
-									},
-									"value" : "remix"
-								},
-								{
-								
-									"type" : "submenu",							
-									"title": {
-										"en" : "API",
-										"it" : "API"
-									},
-									"items":[
-										{
-											"type" : "item",
-											"label" : {
-												"en" : "Get an API Key",
-												"it" : "Ottiene una chiave"
-											},
-											"value" : "api-key"
-										},
-										{
-											"type" : "item",
-											"label" : {
-												"en" : "Find out more",
-												"it" : "Leggi"
-											},
-											"value" : "api-docs"
-										}
-									]
-									
-									
-									
-								}
-							]
-									
-						},
+						
+						
 						{
 							"type" : "item",
 							"label" : {
 								"en" : "Contribute",
 								"it" : "Contributi"
 							},
-							"url" : "test-global-nav-contribute.html"		
+							"value" : "contribute"		
 						},
 						{
 							"type" : "item",
@@ -128,7 +114,7 @@ globalNav.init(
 								"en" : "Events",
 								"it" : "Eventi"
 							},
-							"url" : "test-global-nav-events.html"		
+							"value" : "events"		
 						}
 					]
 				}

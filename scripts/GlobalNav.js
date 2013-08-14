@@ -1,7 +1,14 @@
 var globalNav = function(){
-    
-	var locale = window.location.href.match(/([?&])locale=[a-z]{2}/);
+
+	var href   = window.location.href;
+	
+	// set locale
+	var locale = href.match(/([?&])locale=[a-z]{2}/);
 	locale = locale && locale.length ? locale[0].split('=')[1] : 'en';
+	
+	// clean href
+	href = href.match(/[?]/) ? href.split('?')[0] : href;
+	
 
     var topBar         = false;
     var topBarSections = [];
@@ -14,25 +21,13 @@ var globalNav = function(){
     };
     
     var initHtml = function(config){
-    	var url = window.location.href.split('/').pop();
+
+    	var url = href.split('/').pop();
     	var nav = $('<nav class="eu-global-nav container">').prependTo('body');
 
     	var divider = function(){return '<li class="divider">&nbsp;</li>'};
-
-	        
-        var topBar      = $('<section class="top-bar-section">').appendTo(nav);
-        
-    	// Europeana logo
-        /*
-    	topBar.append(
-             '<ul class="logo">'
-          +    '<li class="hide-on-phones">'
-          +      '<a href="#">a</a>'
-          +    '</li>'
-          +    '<li class="show-on-phones menu-icon"><a href="#"><span></span></a></li>'
-          + '</ul>'
-        );
-        */
+        var topBar  = $('<section class="top-bar-section">').appendTo(nav);
+       
         
     	// Left - Right floats
 
@@ -47,8 +42,7 @@ var globalNav = function(){
 		var buildMenu = function(cmp, conf, type, recursions){
 			
 			var menu = cmp;
-			
-	        menu = $('<li class="eu-global-menu ' + type + (recursions==0 ? '' : ' item submenu') + '">').appendTo(cmp);
+	        menu = $('<li class="eu-global-menu ' + (type == 'globalmenu' ? type + ' hMenu' : type) + (recursions==0 ? '' : ' item submenu') + '">').appendTo(cmp);
 			
 	        if(type == "globalmenu"){
 	      	 	menu.append(
@@ -67,21 +61,20 @@ var globalNav = function(){
 	      	 	menu.addClass('active');
 	        }
       	 	menu = menu.children('ul');
-			
       	 	
         	$(conf.items).each(function(i, ob){
-
-        		//console.log("compare " + val.href  + " with " +  url );
-    			//linkClass = (val.href == url) ? ' class="active"' : '';
-    	        //topBarLeft.append('<li><a ' + linkClass + ' href="' + val.href + '">' + val.label + '</a></li>');
-
-        		
         		if(ob.type == "item"){
-	        		menu.append('<li class="item"><a href="' + (ob.url ? ob.url : '#') + '" class="' + ob.value + '">' + ob.label[locale] + '</a></li>');
-        		}
-        		else if(ob.type == "submenu" || ob.type == "globalmenu" || ob.type == "submenu"){
         			
-        			buildMenu(menu, ob, ob.type == "globalmenu" ? "globalmenu" : type, recursions +1 );
+        			// set active items on page load
+        			var active = url == ob.url ? ' active' : '';
+	        		menu.append('<li class="item' + active + '"><a href="' + (ob.url ? ob.url : '#') + '" class="' + ob.value + '">' + ob.label[locale] + '</a></li>');
+	        		if(active.length){
+	        			menu.parents('.eu-global-menu').addClass('active');
+	        		}
+        		}
+        		else if(ob.type == "submenu" || ob.type == "globalmenu" || ob.type == "hMenu"){
+//        			buildMenu(menu, ob, ob.type == "globalmenu" ? "globalmenu" : type, recursions +1 );
+        			buildMenu(menu, ob, ob.type, recursions +1 );
         		}
         		
         	});			
@@ -95,17 +88,6 @@ var globalNav = function(){
 	        	if(val.type == "hMenu"){
 	        		buildMenu(topBarLeft, val, "hMenu", 0);
 	        	}
-	        	/*
-	        	else{
-	        		
-	        		console.log("compare " + val.href  + " with " +  url );
-	        		
-	    			linkClass = (val.href == url) ? ' class="active"' : '';
-	    	        topBarLeft.append('<li><a ' + linkClass + ' href="' + val.href + '">' + val.label + '</a></li>');
-
-	        	}
-	        	*/
-
 	        }
 	        
 	    //    topBarLeft.append(divider());

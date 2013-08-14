@@ -7,7 +7,7 @@
 }
 
 
-.eu-global-menu.vMenu{
+.eu-global-menu.vMenu {
 	/* static hMenu overlaps */
 	position: relative;
 	z-index: 12;
@@ -66,10 +66,16 @@
 
 .eu-global-menu.hMenu.active>ul>.item.active {
 	
-  /* active is orange */
+  /* active is orange 
   box-shadow:		none;
   background-color:	orange;
+  */
+  box-shadow: inset 0 0 4px #4C7ECF;
 
+}
+
+.eu-global-menu.hMenu.active>ul>.item.active.globalmenu{
+  box-shadow: none;
 }
 
 .eu-global-menu.hMenu.active>ul>.globalmenu.item.active{
@@ -136,31 +142,20 @@
   z-index:		0;
 }
 
+
+.eu-global-menu .submenu .item{
+	border-bottom: 0.2em solid #222;
+}
+	
 .eu-global-menu.hMenu > ul {
 	left:        0;
 }
 
-/*
-.eu-global-menu.hMenu.submenu > ul {
-	xleft:        0;
-}
-*/
-
-/*
-.eu-global-menu.hMenu > ul > li{
-  position:        relative;
-}
-
-.eu-global-menu.hMenu > ul {
-  position:    absolute;
-  width:       100%;
-}
-*/
-
-
 
 .right .eu-global-menu ul{
 	right:			0;
+}
+.right .eu-global-menu ul li{
 	padding-right:	1.5em;
 }
 
