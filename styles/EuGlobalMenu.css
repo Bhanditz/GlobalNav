@@ -72,6 +72,13 @@
 
 }
 
+.eu-global-menu.hMenu.active>ul>.globalmenu.item.active{
+	
+  background-color:	#222;
+}
+
+
+
 .eu-global-menu a {
     text-decoration: none;
     cursor: pointer;
