@@ -23,7 +23,7 @@ var globalNav = function(){
         var topBar      = $('<section class="top-bar-section">').appendTo(nav);
         
     	// Europeana logo
-        
+        /*
     	topBar.append(
              '<ul class="logo">'
           +    '<li class="hide-on-phones">'
@@ -32,6 +32,7 @@ var globalNav = function(){
           +    '<li class="show-on-phones menu-icon"><a href="#"><span></span></a></li>'
           + '</ul>'
         );
+        */
         
     	// Left - Right floats
 
@@ -39,74 +40,88 @@ var globalNav = function(){
         var topBarRight = $('<ul class="right">').appendTo(topBar);
 
         
-		$.each(config.row1.left, function(key, val) {				
-
+        
+       
+        // TODO: remove type and use conf.type
+        
+		var buildMenu = function(cmp, conf, type, recursions){
 			
-			linkClass = (val.href == url) ? ' class="active"' : '';
+			var menu = cmp;
 			
-	        topBarLeft.append('<li><a ' + linkClass + ' href="' + val.href + '">' + val.label + '</a></li>');
-	        
-	        topBarLeft.append(divider());
-
-		});
-
-		var buildMenu = function(cmp, conf, recursions){
-	        var menu = $('<li class="eu-global-menu ' + recursions + (recursions==0 ? '' : ' item') + '">').appendTo(cmp);
-	        
-      	 	menu.append('<span class="menu-label hide-on-phones"> ' + conf.title + '</span>'
-      	 			+	'<span class="icon-arrow-3 open-menu hide-on-phones"></span>'
-      	 			+	'<span id="mobile-menu" class="icon-mobilemenu show-on-phones"></span>'
-      	 			+	'<ul title="' + conf.title + '"></ul>');
-      	 	
+	        menu = $('<li class="eu-global-menu ' + type + (recursions==0 ? '' : ' item submenu') + '">').appendTo(cmp);
+			
+	        if(type == "globalmenu"){
+	      	 	menu.append(
+      	 			'<span class="icon-logo" style="color:white;"></span>' +
+      	 			'<ul title="Europeana"></ul>'
+	      	 	);
+	        }
+	        else if(conf.title){
+	      	 	menu.append('<span class="menu-label hide-on-phones"> ' + conf.title[locale] + '</span>'
+	      	 			+	'<span class="icon-arrow-3 open-menu hide-on-phones"></span>'
+	      	 			+	'<span id="mobile-menu" class="icon-mobilemenu show-on-phones"></span>'
+	      	 			+	'<ul title="' + conf.title[locale] + '"></ul>');
+	        }
+        	else{
+	      	 	menu.append('<ul></ul>');
+	      	 	menu.addClass('active');
+	        }
       	 	menu = menu.children('ul');
+			
       	 	
         	$(conf.items).each(function(i, ob){
 
+        		//console.log("compare " + val.href  + " with " +  url );
+    			//linkClass = (val.href == url) ? ' class="active"' : '';
+    	        //topBarLeft.append('<li><a ' + linkClass + ' href="' + val.href + '">' + val.label + '</a></li>');
+
+        		
         		if(ob.type == "item"){
-	        		menu.append('<li class="item"><a href="#" class="' + ob.value + '">' + ob.label[locale] + '</a></li>');
+	        		menu.append('<li class="item"><a href="' + (ob.url ? ob.url : '#') + '" class="' + ob.value + '">' + ob.label[locale] + '</a></li>');
         		}
-        		else if(ob.type == "submenu"){
-        			buildMenu(menu, ob, recursions +1 );
+        		else if(ob.type == "submenu" || ob.type == "globalmenu" || ob.type == "submenu"){
+        			
+        			buildMenu(menu, ob, ob.type == "globalmenu" ? "globalmenu" : type, recursions +1 );
         		}
         		
         	});			
 		};
 
+		// Left
+		
+		$.each(config.row1.left, function(key, val) {
+			
+	        if(typeof val == 'object'){
+	        	if(val.type == "hMenu"){
+	        		buildMenu(topBarLeft, val, "hMenu", 0);
+	        	}
+	        	/*
+	        	else{
+	        		
+	        		console.log("compare " + val.href  + " with " +  url );
+	        		
+	    			linkClass = (val.href == url) ? ' class="active"' : '';
+	    	        topBarLeft.append('<li><a ' + linkClass + ' href="' + val.href + '">' + val.label + '</a></li>');
+
+	        	}
+	        	*/
+
+	        }
+	        
+	    //    topBarLeft.append(divider());
+		});
+
+		// Right
+		
 		$.each(config.row1.right, function(key, val){
+			
 			topBarRight.append(divider());
 			
 	        if(typeof val == 'string'){
 	        	topBarRight.append('<li><a href="#">' + val + '</a></li>');		        	
 	        }
 	        else if(typeof val == 'object'){
-
-	        	buildMenu(topBarRight, val, 0);
-	        	/*
-		        var menu = $('<li class="eu-global-menu">').appendTo(topBarRight);
-		        
-	      	 	menu.append('<span class="menu-label hide-on-phones"> ' + val.title + '</span>'
-	      	 			+	'<span class="icon-arrow-3 open-menu hide-on-phones"></span>'
-	      	 			+	'<span id="mobile-menu" class="icon-mobilemenu show-on-phones"></span>'
-	      	 			+	'<ul title="' + val.title + '"></ul>');
-	      	 	
-	      	 	menu = menu.find('ul');
-	      	 	
-	        	$(val.items).each(function(i, ob){
-
-	        		if(ob.type == "item"){
-
-		        		menu.append('<li class="item"><a href="#" class="' + ob.value + '">' + ob.label[locale] + '</a></li>');
-
-	        		}
-	        		else if(ob.type == "submenu"){
-
-		        		menu.append('<li class="item"><a href="#" class="' + ob.value + '">' + ob.label[locale] + '</a></li>');
-
-	        		}
-	        		
-	        	});
-	        	*/
-	        	 
+	        	buildMenu(topBarRight, val, "vMenu", 0);
 	        }
 		});
 		
@@ -125,11 +140,13 @@ var globalNav = function(){
  		   }
        	   else{
        		   var menuConfig = {
+       				/*
 					"fn_init": function(self){
 					}
 					,"fn_item":function(self, selected){
 						//alert("fn_item");
 					}
+					*/
 				};
        		    $('.eu-global-menu').each(function(){
        		    	new EuGlobalMenu($(this), menuConfig).init();

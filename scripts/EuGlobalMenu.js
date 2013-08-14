@@ -9,7 +9,6 @@ var EuGlobalMenu = function(cmpIn, options){
 	self.href		= null;
 	
 	self.cmp.click(function(e){
-
 		
 		//alert("self.cmp.click  " + e.target.nodeName + '   ' + $(e.target).hasClass('eu-global-menu') + '  ' + $(e.target).parent().attr('class')  );
 
@@ -30,6 +29,9 @@ var EuGlobalMenu = function(cmpIn, options){
 
 	
 	self.setLabel = function(val){
+		if(self.cmp.hasClass('hMenu')){
+			return;
+		}
 		self.cmp.children(".menu-label").html(val);
 	};
 	
@@ -73,26 +75,38 @@ var EuGlobalMenu = function(cmpIn, options){
 				$(ob).parent().removeClass("active");						
 			}
 		});
-		self.cmp.removeClass("active");
+
+		
+		if(!self.cmp.hasClass('hMenu')){
+			self.cmp.removeClass("active");
+		}
+
 	};
 
 	
 	self.ops.children("a").click(
 		function(e){
 			
-			alert($(this).hasClass('eu-global-menu') );
-			//if( $(this).hasClass('eu-global-menu') ){
-			//	return;
-			//}
-			
+	
 			var selected = $(this).attr("class");
 			self.href = $(this).attr("href");
+			
+			var href = $(this).attr("href");
+			if( href && href.length && href != '#' ){
+				window.location = $(this).attr("href");
+			}
+				
 			self.setActive(selected);
+			e.stopPropagation();
+			return false;
+
+			/*
 			if(self.options.fn_item){
 				self.options.fn_item(self, selected);
 				e.stopPropagation();
 				return false;
 			}
+			*/
 		}
 	);
 

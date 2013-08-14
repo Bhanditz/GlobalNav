@@ -4,17 +4,145 @@ globalNav.init(
 		"row1"   : {
 				
 			"left"  : [
-				{"label" : "Home",       "href" : "test-global-nav.html"},
-				{"label" : "Explore",    "href" : "test-global-nav-explore.html"},
-				{"label" : "Contribute", "href" : "test-global-nav-contribute.html"},
-				{"label" : "Events",     "href" : "test-global-nav-events.html"}
+				
+								
+				{
+					"type" : "hMenu",
+					"items" : [
+					
+					
+						{
+							"type" : "globalmenu",
+							
+							"title": {
+								"en" : "",
+								"it" : "E"
+							},
+							
+							
+							"items" : [
+								{
+									"type" : "item",
+									"label" : {
+										"en" : "applications...",
+										"it" : "applications..."
+									},
+									"value" : "open-global-menu"		
+								}
+							]
+						},
+					
+					
+					
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Home",
+								"it" : "Casa"
+							},
+							"url" : "test-global-nav.html"		
+						},
+						{
+						
+							"type" : "submenu",							
+							"title": {
+								"en" : "Explore",
+								"it" : "Esplora"
+							},
+							"items":[
+								{
+									"type" : "item",
+									"label" : {
+										"en" : "Exhibitions",
+										"it" : "Mostri"
+									},
+									"value" : "exhibitions"
+								},
+								{
+									"type" : "item",
+									"label" : {
+										"en" : "Portal",
+										"it" : "Portale"
+									},
+									"value" : "portal"
+								},
+								{
+									"type" : "item",
+									"label" : {
+										"en" : "1914-1918",
+										"it" : "1914-1918"
+									},
+									"value" : "1418"
+								},
+								{
+									"type" : "item",
+									"label" : {
+										"en" : "Remix",
+										"it" : "Remix"
+									},
+									"value" : "remix"
+								},
+								{
+								
+									"type" : "submenu",							
+									"title": {
+										"en" : "API",
+										"it" : "API"
+									},
+									"items":[
+										{
+											"type" : "item",
+											"label" : {
+												"en" : "Get an API Key",
+												"it" : "Ottiene una chiave"
+											},
+											"value" : "api-key"
+										},
+										{
+											"type" : "item",
+											"label" : {
+												"en" : "Find out more",
+												"it" : "Leggi"
+											},
+											"value" : "api-docs"
+										}
+									]
+									
+									
+									
+								}
+							]
+									
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Contribute",
+								"it" : "Contributi"
+							},
+							"url" : "test-global-nav-contribute.html"		
+						},
+						{
+							"type" : "item",
+							"label" : {
+								"en" : "Events",
+								"it" : "Eventi"
+							},
+							"url" : "test-global-nav-events.html"		
+						}
+					]
+				}
+				
 			],
 			
 			
 			
 			"right" : ["Register / Login",
 				{
-					"title": "Choose language",
+					"title": {
+						"en" : "Choose a language",
+						"it" : "Sceglie una lingua"
+					},
 					"items":[
 						{
 							"type" : "item",
@@ -22,7 +150,8 @@ globalNav.init(
 								"en" : "English",
 								"it" : "Inglese"
 							},
-							"value" : "en"		
+							"value" : "en",
+							"url"   : "?locale=en"
 						},
 						{
 							"type" : "item",
@@ -46,7 +175,11 @@ globalNav.init(
 						{
 							"type" : "submenu",
 							
-							"title": "Choose a dialect",
+							"title": {
+								"en" : "Choose a dialect",
+								"it" : "Sceglie un dialetto"
+							},
+							
 							"items":[
 								{
 									"type" : "item",
@@ -68,7 +201,11 @@ globalNav.init(
 								{
 									"type" : "submenu",
 									
-									"title": "Choose a state dialect",
+									"title": {
+										"en" : "Choose a state dialect",
+										"it" : "Sceglie un dialetto statale"
+									},
+									
 									"items":[
 										{
 											"type" : "item",
@@ -126,7 +263,8 @@ globalNav.init(
 								"it" : "Italiano"
 								
 							},
-							"value" : "it"		
+							"value" : "it",		
+							"url"   : "?locale=it"
 						},
 						{
 							"type" : "item",

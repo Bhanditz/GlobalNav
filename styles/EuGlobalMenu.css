@@ -1,13 +1,19 @@
 .eu-global-menu {
   display: inline-block;
-  /* !important;*/
+
   padding-left: 0.15em;
-  position: relative;
   text-align: left;
   z-index: 11;
 }
 
 
+.eu-global-menu.vMenu{
+	/* static hMenu overlaps */
+	position: relative;
+	z-index: 12;
+}
+
+	
 .eu-global-menu.no-highlight span.open-menu {
   text-shadow: none; 
 }
@@ -33,10 +39,7 @@
 
 .eu-global-menu .item {
   display: none !important;
-
-  margin-top: 0.1em;
   padding: 0.2em 0.6em 0.1em 0.6em;
-
   white-space: nowrap;
   z-index: 200; 
 }
@@ -46,7 +49,27 @@
   /* shown items */
   display: block !important;
   width:	100%;
+}
+
+
+.hMenu{
+	width: 100%;
+}
+
+.eu-global-menu.hMenu.active>ul>.item {
+	
+  /* shown horizontal items */
+  display: inline-block !important;
+  width:   auto;
   
+}
+
+.eu-global-menu.hMenu.active>ul>.item.active {
+	
+  /* active is orange */
+  box-shadow:		none;
+  background-color:	orange;
+
 }
 
 .eu-global-menu a {
@@ -87,22 +110,50 @@
   text-decoration: underline;
 }
 
-.eu-global-menu ul {
+.eu-global-menu > ul {
   list-style-type: none;
-  position: absolute;
-  margin: 0px;
-  padding: 0px;
-  z-index: 200;
-  /* show max 10 items  */
-  max-height: 20em;
-  ZZZoverflow-x: visible;
-  overflow-y: auto;
-  
-  ZZZoverflow-x: visible;
-  
+  position:        absolute;
+  margin:          0px;
+  padding:         0px;
+  z-index:         200;
+  max-height:      21em;
+  overflow-x:      hidden;
+  overflow-y:      auto;
 }
 
+.eu-global-menu.hMenu > ul {
+
+  position:     absolute;
+  width:        100%;
+  overflow:     visible;
+  z-index:		0;
+}
+
+.eu-global-menu.hMenu > ul {
+	left:        0;
+}
+
+/*
+.eu-global-menu.hMenu.submenu > ul {
+	xleft:        0;
+}
+*/
+
+/*
+.eu-global-menu.hMenu > ul > li{
+  position:        relative;
+}
+
+.eu-global-menu.hMenu > ul {
+  position:    absolute;
+  width:       100%;
+}
+*/
+
+
+
 .right .eu-global-menu ul{
-	right:	0;
+	right:			0;
+	padding-right:	1.5em;
 }
 
