@@ -21,6 +21,39 @@
 			<br/>
 			<br/>
 			<h2>This is the portal page</h2>
+			
+			<br/>
+			<br/>
+			
+			<textarea id="config">This is the portal page</textarea>
+			<br/>
+			<a id="getConf" href="">get config</a>
+			<br/>
+			<a id="update" href="">update</a>
+			
+			<script type="text/javascript">
+				$(document).ready(function(){
+					
+					$('#update').click(function(e){
+						e.preventDefault();
+						var conf = eval( "(" +  $("#config").val() + ")");
+						
+						$('.container').remove();
+						
+						globalNav.init(conf);
+						
+						return false;
+					});
+					
+					$('#getConf').click(function(e){
+						$("#config").val(JSON.stringify(globalNav.getConf()));
+						e.preventDefault();
+					});
+					
+					
+				});
+			</script>
+			
 		</div>		
 	</body>
 </html>

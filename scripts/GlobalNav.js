@@ -1,5 +1,6 @@
 var globalNav = function(){
 
+	var origConfig = false;
 	var href   = window.location.href;
 	
 	// set locale
@@ -140,6 +141,7 @@ var globalNav = function(){
     
     return {
     	init: function(data){
+    	  origConfig = data;
   		  initCSS(data.css);
           initHtml(data.html);
           initJS(data.js);
@@ -154,6 +156,9 @@ var globalNav = function(){
 	        		    }
 	        		);
         	});
+        },
+        getConf:function(){
+        	return origConfig;
         }
     }
 }();
