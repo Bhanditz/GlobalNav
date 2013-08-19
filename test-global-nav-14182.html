@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+	<head>
+	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+	  <script type="text/javascript" src="http://localhost/europeana/GlobalNav/scripts/GlobalNav2.js"></script>
+	  <!--script type="text/javascript" src="http://test.portal2.eanadev.org/GlobalNav/GlobalNav.js"></script-->
+	  
+	  <script type="text/javascript">
+	    //globalNav.load("http://test.portal2.eanadev.org/GlobalNav/1914-1918/config.json");
+	    globalNav.load("http://localhost/europeana/GlobalNav/1914-1918/config2.json");
+	  </script>
+	  	  
+	  <style type="text/css">
+	  
+	  
+html, body{
+	margin: 0;
+	padding: 0;
+} 
+
+.global-nav-menu-bar{
+
+	font-size:   1em !important;
+	line-height: 1em;
+
+	position:			relative;
+	padding:			0;
+	background-color:	#fff;
+	border-radius:		0.5em;
+	white-space:		nowrap;
+	width:				100%;
+}
+
+
+.global-nav-menu-bar .menu-item,
+.global-nav-menu-bar .more-item{
+	border:			1px solid #d6d6d6;
+	border-radius:	0.5em;
+	color:			#2A85E8;
+	display:		block;
+	padding:		0.25em 1em;
+	margin-top:		0.5em;
+	outline:		0;
+	position:  		relative;
+	text-decoration:none;
+	z-index:    	1;
+}
+
+.global-nav-menu-bar .menu-item :hover,
+.global-nav-menu-bar .more-item :hover{
+	color:		#666666;
+	text-decoration:	underline;
+}
+
+.global-nav-menu-bar .menu-item.active,
+.global-nav-menu-bar .more-item .active{
+	border-radius:	0.5em 0.5em 0 0;
+}
+
+.global-nav-menu-bar .menu-item.disabled{
+	color:	#e4e4e4;
+	cursor:	default;
+}
+
+/*
+.global-nav-menu-bar .content{
+	padding:	1em 0;
+}
+*/
+
+/* clearfix */
+.global-nav-menu-bar:after { 
+	visibility: hidden;
+	display:    block;
+	font-size:  0;
+	content:    " ";
+	height:     0;
+	clear:      both;
+}
+
+
+.global-nav-menu-bar .section,
+.global-nav-menu-bar .menu-item,
+.global-nav-menu-bar .more-item{
+	box-sizing:			border-box;
+	-moz-box-sizing:	border-box;
+	-webkit-box-sizing:	border-box;
+}
+	
+
+.global-nav-menu-bar .section{
+	display:		none;
+	position:		relative;
+	top:			-1px;
+	white-space:	normal;
+	width:			100%;
+	border-radius:	0 0 0.5em 0.5em;
+	
+}
+
+.global-nav-menu-bar .section.active{
+	display:		inline-block;
+	border:			1px solid #d6d6d6;
+	border-top:		none;
+}
+
+
+@media only screen and ( min-width:8em ){
+
+	.global-nav-menu-bar{
+		box-shadow:			none;
+		border-radius:		0;
+	}
+
+	.global-nav-menu-bar .menu-item,
+	.global-nav-menu-bar .more-item{
+		display:		inline-block;
+		border-radius:	0.5em 0.5em 0 0;
+		margin-top:		0;
+		cursor:			pointer;
+	}
+	
+	.global-nav-menu-bar .menu-item.active,
+	.global-nav-menu-bar .more-item.active{
+		border-bottom:		1px solid #fff;
+		margin-top:			0;
+		text-decoration:	underline;
+	}
+
+	.global-nav-menu-bar .section{
+		border-top:						1px solid #d6d6d6;
+		border-radius:					0 0.5em 0.5em 0;
+		box-shadow:						7px 0 4px -5px #C3C3C3;
+		background-color:				white;
+		float:							left;
+		margin-right:					0.5em;
+	}
+
+	.global-nav-menu-bar .section.active{
+		border-top:		1px solid #d6d6d6;
+	}
+
+}
+
+
+
+.global-nav-menu-bar.measure-mode{
+	max-height:  1.5em;
+	overflow:    hidden;
+	white-space: normal;
+}
+
+.global-nav-menu-bar .more-item{
+	display:    none;
+}
+
+	  </style>
+	  
+	  
+
+
+	</head>
+	<body>
+	
+	
+<!--div id="main">
+	<div class="menu-bar-inner">
+		<div class="more" style="display:none; float:left; width:100%; background-color:red;">How ya doin?<br/>How ya doin?<br/>How ya doin?<br/></div>
+
+	    <a title="Show more" class="more-item">More...</a>
+  
+	    <a title="Exhibitions" class="menu-item" href="#exhibitions">Exhibitions</a>
+	
+		<div class="section">
+				
+			<div class="global-nav-menu-bar test">
+				<div class="menu-bar-inner">
+
+					<div class="more" style="display:none; float:left; width:100%; background-color:red;">How ya doin?<br/>How ya doin?<br/>How ya doin?<br/></div>
+				    
+				    <a title="Show more" class="more-item">More...</a>
+				    
+				    <a title="Exhibitions" class="menu-item" href="#exhibitions">Europeana</a>
+					<div class="section">
+						Europeana options
+					</div>
+					
+					<a title="The European Library" class="menu-item" href="#exhibitions">The European Library</a>
+					<div class="section">
+						The European Library options
+					</div>
+					
+					<a title="EU Vision" class="menu-item" href="#exhibitions">EU Vision</a>
+					<div class="section">
+						EU Vision options
+					</div>
+
+					<a title="Other Partners" class="menu-item" href="#exhibitions">Other Partners</a>
+					<div class="section">
+						Other Partners options
+					</div>
+
+				</div>
+	    	</div>
+
+
+
+		</div>
+	
+		<a href="#saved-items" class="menu-item">Saved items</a>
+	
+		<div class="section">
+			Some content
+		</div>
+		
+		<a class="menu-item" href="#saved-searches">Searches</a>
+	
+		<div class="section">
+			<div class="saved-searches">
+				<div class="saved-search 84155714">
+					<a class="go" href="/portal/search.html?query=paris&amp;bt=savedSearch">paris</a><br>
+					Date saved: <em>September 14, 2012 12:25:08 PM CEST</em><br>
+					<button class="remove-saved-search  deans-button-1 europeana-button-1" id="84155714">Delete</button>
+				</div>
+			</div>
+		</div>
+		
+		<a href="#saved-tags" class="menu-item active">Tags that are saved</a>
+	
+		<div class="section active">
+			<div class="saved-tags">
+				No saved tags
+			</div>
+		</div>
+		
+		<a class="menu-item" href="#api-keys">API Keys</a>
+	
+		<div class="section">
+		    <p><a title="Get an API-Key" target="_self" href="/portal/api/registration.html" class="europeana">Get an API-Key</a></p>
+		</div>
+	</div>
+</div-->
+	
+	
+	
+		<div>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			MenuBar<br/>
+			<br/>
+			<h2>This is the 1418 page</h2>
+			<br/>
+			<a onclick="javascript:rootMenu.resize()">runTest</a>
+		</div>
+		
+		<script type="text/javascript">
+		
+
+		/* event debouncing () */
+/*
+		(function($,sr){
+
+			var debounce = function (func, threshold, execAsap) {
+				var timeout;
+				return function debounced () {
+					var obj = this, args = arguments;
+					function delayed () {
+						if (!execAsap)
+							func.apply(obj, args);
+							timeout = null;
+						};
+			
+						if (timeout){
+							clearTimeout(timeout);
+						}
+						else if (execAsap){
+							func.apply(obj, args);
+						}
+			
+						timeout = setTimeout(delayed, threshold || 100);
+					};
+				};
+		
+				// smartresize 
+				jQuery.fn[sr] = function(fn){	return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+				jQuery.fn['euScroll'] = function(fn){	return fn ? this.bind('scroll', debounce(fn)) : this.trigger(sr); };
+
+		})(jQuery,'euRsz');
+
+		// usage:
+		$(window).euRsz(function(){
+			rootMenu.resize();
+		});
+		
+		
+		var rootMenu = new MenuBar( $('#main'));
+		*/
+		//rootMenu.resize();
+		</script>
+		
+	</body>
+</html>
