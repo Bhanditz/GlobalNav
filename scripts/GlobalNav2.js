@@ -1,8 +1,8 @@
 var globalNav = function(){
 
 	var origConfig = false;
-	var href   = window.location.href;
-	
+	var href       = window.location.href;
+
 	// set locale
 	var locale = href.match(/([?&])locale=[a-z]{2}/);
 	locale = locale && locale.length ? locale[0].split('=')[1] : 'en';
@@ -21,9 +21,9 @@ var globalNav = function(){
     };
     var initHtml = function(config){
 
-    	var url = href.split('/').pop();
+//    	var url = href.split('/').pop();
     	var nav = $('<nav class="eu-global-nav">').prependTo('body');
-
+    	
 //    	var divider = function(){return '<li class="divider">&nbsp;</li>'};
        
         
@@ -34,9 +34,10 @@ var globalNav = function(){
         
         var buildMenu = function(cmp, conf){
         	var menu = $(''
-        	+ '<div class="global-nav-menu-bar">'
+        	+ '<div class="global-nav-menu-bar"' + (conf.url ? ' href="' + conf.url + '"' : '')  + '>'
         	+   '<div class="menu-bar-inner">'
-        	+     '<div class="more" style="display:none; float:left; width:100%; background-color:red;"></div>'
+        	+     '<a title="Show more" class="back-item">Back...</a>'
+        	+     '<div class="more" style=""></div>'
         	+     '<a title="Show more" class="more-item">More...</a>'
         	+     '</div>'
         	+   '</div>'
@@ -46,6 +47,8 @@ var globalNav = function(){
         	
         	//alert("$(conf.items).length " + $(conf.items).length);
 
+        	/*
+        	
         	$(conf.items).each(function(i, ob){
         		menu.append('<a title="' + ob.label[locale] + '" class="menu-item"' + '>'
         				+ ob.label[locale]
@@ -56,19 +59,31 @@ var globalNav = function(){
         		}
         		
         	});	
+        	*/
+        	menu = menu.children('.more');
+
+        	$(conf.items).each(function(i, ob){        		
+        		menu.before('<a title="' + ob.label[locale] + '" ' + (ob.url ? 'href="' + ob.url + '"' : '') + ' class="menu-item"' + '>'
+        				+ ob.label[locale]
+        		+ '</a>');
+        		if(ob.menu){
+        			menu.before('<div class="section"></div>');
+        			//var submenu = $('<div class="section"></div>').prependTo(menu);
+        			buildMenu(menu.prev('.section'), ob);
+        		}
+
+        		
+        	});	
         	
 
         };
         
 		// Left
 		$.each(config.left, function(key, val) {
-			
 	        if(typeof val == 'object' && val.menu){
-        		//var container = $('<div id="root-menu">').appendTo(topBarLeft);	        		
         		buildMenu(topBarLeft, val);
 	        }
-	        
-	    //    topBarLeft.append(divider());
+	        // topBarLeft.append(divider());
 		});
 
 
@@ -149,13 +164,18 @@ var globalNav = function(){
 
    		 		})(jQuery,'euRsz');
 
-       			var rootMenu = new MenuBar( $('.left .global-nav-menu-bar'));
+       			var rootMenu = new EuMenuBar( $('.left > .global-nav-menu-bar'));
        			rootMenu.resize();
 
    		 		$(window).euRsz(function(){
    		 			rootMenu.resize();
    		 		});
-       		    
+   		 		
+   		 		// set the active
+   		 		//alert(href)
+   		    	rootMenu.findActiveLeaf(href);
+   		    	
+   		    	
        	   }
     	};
     	recursiveLoad(0);   	

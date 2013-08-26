@@ -11,55 +11,128 @@ globalNav.init(
 				
 					{
 						"label" : {
-							"en" : "Home",
-							"it" : "Casa"
+							"en" : "Portal Home",
+							"it" : "Portale - Home"
 						},
-						"url" : "test-global-nav2.html"		
+						"url" : "index.html"
 					},
 					{
 						"label" : {
-							"en" : "Contribute",
-							"it" : "Contributi"
+							"en" : "Search",
+							"it" : "Cerca"
 						},
-						"value" : "contribute"		
+						"value" : "search"		
 					},
 					{
 						"menu" : true,
 						"label" : {
-							"en" : "Events",
-							"it" : "Eventi"
+							"en" : "Popular Searches",
+							"it" : "Cerchi Populari"
 						},
-						"XXXXXvalue" : "events",
 						"items" : [
 							{
 								"label" : {
-									"en" : "Roadshow 1",
-									"it" : "Evento 1"
-								},
-								"url" : ""		
+									"en" : "Cordoba Cathedral",
+									"it" : "Il Duomo do Cordoba"
+								}
 							},
 							{
 								"label" : {
-									"en" : "Roadshow 2",
-									"it" : "Evento 2"
-								},
-								"value" : ""		
+									"en" : "World War II",
+									"it" : "La Seconda Guerra Mondiale"
+								}
 							},
 							{
 								"label" : {
-									"en" : "Roadshow 3",
-									"it" : "Evento 3"
+									"en" : "Leonardo da Vinci",
+									"it" : "Leonardo da Vinci"
+								}
+							}
+						]
+					},
+					{
+						"menu" : true,
+						"label" : {
+							"en" : "About Portal",
+							"it" : "Informazioni sul Portale"
+						},
+						"items" : [
+							{
+								"label" : {
+									"en" : "Terms of Use",
+									"it" : "Termini del Uso"
+								}
+							},
+							{
+								"menu" : true,
+								"label" : {
+									"en" : "Rights",
+									"it" : "Diritti"
 								},
-								"url" : ""		
+								"url" : "rights/index.html",								
+								"items" : [
+									{
+										"label" : {
+											"en" : "Rights 1",
+											"it" : "Diritti 1"
+										},
+										"xxxurl" : "rights-1.html"		
+									},
+									{
+										"label" : {
+											"en" : "Rights 2",
+											"it" : "Diritti 2"
+										},
+										"xxxurl" : "rights-2.html"		
+									},
+									{
+										"label" : {
+											"en" : "Rights 3",
+											"it" : "Diritti 3"
+										},
+										"xxxurl" : "rights-3.html"		
+									},
+									{
+										"menu" : true,
+										"label" : {
+											"en" : "Rights 4",
+											"it" : "Diritti 4"
+										},
+										"url" : "rights-4/index.html",
+										"items" : [
+										{
+											"label" : {
+												"en" : "Rights 4.1",
+												"it" : "Diritti 4.2"
+											},
+											"XXXurl" : "rights-1.html"		
+										},
+										{
+											"label" : {
+												"en" : "Rights 4.2",
+												"it" : "Diritti 4.2"
+											},
+											"XXXurl" : "rights-1.html"		
+										}]							
+										
+									}
+								]								
+								
 							},
 							{
 								"label" : {
-									"en" : "Roadshow 4",
-									"it" : "Evento 4"
+									"en" : "Jobs",
+									"it" : "Opportunita' di Lavoro"
 								},
 								"value" : ""		
 							}
 						]
+					},
+					{
+						"label" : {
+							"en" : "Press Centre",
+							"it" : "Centro di Stampa"
+						}
 					}
 				]
 			}
@@ -222,13 +295,11 @@ globalNav.init(
 		
 		"stylesheets" : [
 			"http://localhost/europeana/GlobalNav/styles/application2.css",
-			"http://localhost/europeana/GlobalNav/styles/EuGlobalMenu2.css"
+			"http://localhost/europeana/GlobalNav/styles/EuGlobalMenu2.css",
+			"http://localhost/europeana/GlobalNav/styles/GlobalNavMenuBar.css"
 		]
 		
-	},
+	}
 	
+});
 
-	
-	
-}
-);

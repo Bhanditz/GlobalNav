@@ -1,21 +1,3 @@
-<!doctype html>
-<html>
-	<head>
-	  <!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script-->
-	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-
-	  <script type="text/javascript" src="http://localhost/europeana/GlobalNav/scripts/GlobalNav2.js"></script>
-	  <!--script type="text/javascript" src="http://test.portal2.eanadev.org/GlobalNav/GlobalNav.js"></script-->
-	  
-	  <script type="text/javascript">
-	    //globalNav.load("http://test.portal2.eanadev.org/GlobalNav/1914-1918/config.json");
-	    globalNav.load("http://localhost/europeana/GlobalNav/conf/1914-1918/config2.json");
-	  </script>
-	  	  
-	  <style type="text/css">
-	  
-	  
 html, body{
 	margin: 0;
 	padding: 0;
@@ -186,32 +168,3 @@ html, body{
 .global-nav-menu-bar .back-item{
 	display:    none;
 }
-
-	  </style>
-
-	</head>
-	<body>
-		<div>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			MenuBar<br/>
-			<br/>
-			<h2>This is the 1418 page</h2>
-			<br/>
-			<a onclick="javascript:rootMenu.resize()">runTest</a>
-		</div>
-
-		
-<script type="text/javascript">
-/*
- $(document).ready(function(){
-	var res = $('#test').children('.menu-bar-inner');
-	res = res.children('.menu-item')
-	alert(res.length);
- });
- */
-</script>
-	</body>
-</html>
