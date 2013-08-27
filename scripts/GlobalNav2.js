@@ -19,13 +19,10 @@ var globalNav = function(){
         	$('head').append('<link rel="stylesheet" href="' + stylesheet + '"/>');    		
     	});
     };
+    
     var initHtml = function(config){
-
-//    	var url = href.split('/').pop();
-    	var nav = $('<nav class="eu-global-nav">').prependTo('body');
     	
-//    	var divider = function(){return '<li class="divider">&nbsp;</li>'};
-       
+    	var nav = $('<nav class="eu-global-nav">').prependTo('body');
         
     	// Left - Right floats
 
@@ -44,39 +41,18 @@ var globalNav = function(){
     	    + '</div>'
         	).appendTo(cmp);
         	menu = menu.children('.menu-bar-inner');
-        	
-        	//alert("$(conf.items).length " + $(conf.items).length);
-
-        	/*
-        	
-        	$(conf.items).each(function(i, ob){
-        		menu.append('<a title="' + ob.label[locale] + '" class="menu-item"' + '>'
-        				+ ob.label[locale]
-        		+ '</a>');
-        		if(ob.menu){
-        			var submenu = $('<div class="section"></div>').appendTo(menu);
-        			buildMenu(submenu, ob);
-        		}
-        		
-        	});	
-        	*/
         	menu = menu.children('.more');
 
         	$(conf.items).each(function(i, ob){        		
         		menu.before('<a title="' + ob.label[locale] + '" ' + (ob.url ? 'href="' + ob.url + '"' : '') + ' class="menu-item"' + '>'
-        				+ ob.label[locale]
-        		+ '</a>');
+        			+ ob.label[locale]
+        			+ '</a>');
         		if(ob.menu){
         			menu.before('<div class="section"></div>');
-        			//var submenu = $('<div class="section"></div>').prependTo(menu);
         			buildMenu(menu.prev('.section'), ob);
-        		}
-
-        		
-        	});	
-        	
-
+        		}});
         };
+        
         
 		// Left
 		$.each(config.left, function(key, val) {
@@ -102,6 +78,35 @@ var globalNav = function(){
 		});
 		*/
     	//alert("end inithtml");
+		
+    	if(config.pulldown){
+    		var pullDown       = $('<div class="pull-down closed"><ul></ul></div>').prependTo('body');
+    		pullDown.after('<div class="opener-wrapper"><a class="opener">a</a></a>');
+    		
+    		
+        	var pullDownList = pullDown.children('ul');
+        	if(config.pulldown.items){
+            	
+            	$.each(config.pulldown.items, function(i, ob){
+            		pullDownList.append('<li><a ' + (ob.url ? 'href="' + ob.url + '" ' : '') + '>' + ob.label[locale] + '</a></li>')
+            	});        		
+        	}
+        	
+			$('.opener-wrapper>.opener').click(function(){
+				var pullDown = $('.pull-down');
+				
+				if(pullDown.hasClass('closed')){
+					pullDown.removeClass('closed');
+					pullDown.addClass('opened');
+				}
+				else{
+					pullDown.removeClass('opened');
+					pullDown.addClass('closed');					
+				}
+				
+			});
+    	}
+
 		
     };
     

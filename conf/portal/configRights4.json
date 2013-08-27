@@ -1,7 +1,32 @@
 globalNav.init(
 {
 	"html" : {
+		"pulldown" : {
+			"items" : [
+					{
+						"label" : {
+							"en" : "Portal",
+							"it" : "Portale"
+						},
+						"url" : "http://localhost/europeana/GlobalNav/apps/portal/index.html"		
+					},
+					{
+						"label" : {
+							"en" : "1914-1918",
+							"it" : "1914-1918"
+						},
+						"url" : "http://localhost/europeana/GlobalNav/apps/1418/index.html"
+					},
+					{
+						"label" : {
+							"en" : "Exhibitions",
+							"it" : "Mostri"
+						},
+						"url" : "http://localhost/europeana/GlobalNav/apps/exhibitions/index.html"		
+					}
 			
+			]
+		},			
 		"left"  : [
 			
 							
