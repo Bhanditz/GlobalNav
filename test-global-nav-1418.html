@@ -8,11 +8,87 @@
 	  
 	  <script type="text/javascript">
 	    //globalNav.load("http://test.portal2.eanadev.org/GlobalNav/1914-1918/config.json");
-	    globalNav.load("http://localhost/europeana/GlobalNav/1914-1918/config.json");
+	    //globalNav.load("http://localhost/europeana/GlobalNav/1914-1918/config.json");
 	  </script>
+
+		<style type="text/css">
+		
+			body, html{
+			  margin:   0;
+			  padding:  0;
+			}
+		
+			.pull-down{
+				background-color:   #a2a2a2;
+				XXXborder-bottom:      1px solid #333;
+				overflow:           hidden;
+				z-index:            0;
+
+								
+				-webkit-transition: max-height 0.7s ease-in-out;
+			    -moz-transition:    max-height 0.7s ease-in-out;
+			    -o-transition:      max-height 0.7s ease-in-out;
+			    -ms-transition:     max-height 0.7s ease-in-out;
+			    transition:         max-height 0.7s ease-in-out;
+				
+			}
+			
+			.pull-down.closed{
+				max-height:         0;
+			}
+			
+			.pull-down.opened{
+				height:             auto;
+				max-height:         12em;
+			}
+			
+			.opener-wrapper{
+				position:         fixed;
+				margin:           auto;
+				width:            100%;
+			}
+			
+			.opener{
+				background-color: #a2a2a2;
+				border-radius:    0 0 1.15em 1.15em;
+				
+				float:            right;
+				margin-right:     2em;
+				border:           2px solid #919191;
+				border-top-style: none;
+				padding:          0.25em 1em 0.5em 1em;
+
+
+			}
+			
+		</style>
 
 	</head>
 	<body>
+		<div class="pull-down closed">
+			<ul>
+				<li>
+					item
+				</li>
+				<li>
+					item
+				</li>
+				<li>
+					item
+				</li>
+				<li>
+					item
+				</li>
+				<li>
+					item
+				</li>
+			</ul>
+		</div>
+		<div class="opener-wrapper">
+			<a class="opener"> our apps </a>
+		</a>
+		
+	
 		<div>
 			<br/>
 			<br/>
@@ -20,7 +96,35 @@
 			<br/>
 			<br/>
 			<br/>
-			<h2>This is the 1418 page</h2>
+			<h2>This is the 1418 page!</h2>
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 		</div>
+		
+		<script type="text/javascript">
+		
+			$('.opener').click(function(){
+				var pullDown = $('.pull-down');
+				
+				if(pullDown.hasClass('closed')){
+					pullDown.removeClass('closed');
+					pullDown.addClass('opened');
+				}
+				else{
+					pullDown.removeClass('opened');
+					pullDown.addClass('closed');					
+				}
+				
+			});
+			
+			
+	    	//globalNav.load("http://test.portal2.eanadev.org/GlobalNav/1914-1918/config.json");
+	    	//globalNav.load("http://localhost/europeana/GlobalNav/1914-1918/config.json");
+	    	
+	  	</script>
+		
 	</body>
 </html>
+
+
+
+

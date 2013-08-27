@@ -2,11 +2,10 @@ var MenuItem = function (elIn, parentIn) {
 	var self          = this;
 	self.a            = elIn;
 	self.el           = elIn.next('.section');
-	//self.index        = indexIn;
 	self.parent       = parentIn;
 	
 	self.doOpen = function () {
-		alert("doOpen " + self.a.html() );
+
 		var alreadyOpen = self.a.hasClass('active');
 		
 		self.parent.el.find('.menu-item').removeClass('active');
@@ -14,7 +13,7 @@ var MenuItem = function (elIn, parentIn) {
 
 		if(alreadyOpen){
 			self.a .removeClass('active');
-			self.el.removeClass('active');		
+			self.el.removeClass('active');
 		}
 		//if(alreadyOpen && self.a.css('display')=='block'){ // only allow hide on mobile view
 		//	self.parent.selectionMade(false, false, false);
@@ -24,8 +23,11 @@ var MenuItem = function (elIn, parentIn) {
 			self.el.addClass('active');
 			self.parent.selectionMade(self.el.attr('id'), self.a.attr('href') );
 		}
-		//self.parent.resize();
 	};
+	
+	self.setActive = function () {
+		self.doOpen();
+	}
 
 	self.doClose = function () {
 		self.a .removeClass('active');
@@ -39,7 +41,26 @@ var MenuItem = function (elIn, parentIn) {
 		}
 	});
 
+	self.getSelf = function(){
+		return self;
+	}
+	
+	self.getParent = function(){
+		return self.parent;
+	}
+	
+	self.getHref= function(){
+		var href =  self.a.attr('href');
+		return typeof href == 'undefined' ? false : href;
+	}
+	
+	// debug fn
+	self.getEl = function(){
+		return self.el;
+	}
+	
 	return {
+		
 		open : function (){
 			self.doOpen();
 		},
@@ -53,11 +74,13 @@ var MenuItem = function (elIn, parentIn) {
 			return self.a.html();
 		},
 		getHref : function(){
-			var href =  self.a.attr('href');
-			return typeof href == 'undefined' ? false : href;
+			return self.getHref();
 		},
 		getSelf : function(){
 			return self;
+		},
+		getParent : function(){
+			return self.getParent();
 		},
 		click : function(){
 			console.log("expose the click");
@@ -76,7 +99,6 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	self.itemObjects = [];
 	self.el			 = elIn;
 	self.activeId	 = '';
-	//self.activeIndex = '';
 	self.activeHash	 = '';
 	self.callback	 = callbackIn;
 	self.subMenus    = [];	
@@ -97,7 +119,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	};
 	
 	self.openItem = function(hash){
-		alert("openItem");
+
 		// programmatic open
 		if(hash != self.activeHash){
 			self.el.find('.menu-item').each(function (i, ob) {
@@ -351,22 +373,17 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 
 		var compareUrls = function(url1, url2){
 			
-			url1 = url1.replace('../', '');
-			url2 = url2.replace('../', '');
+			//console.log("compareUrls-orig " + url1 + " and " + url2);
 			
 			if(url2.replace('../', '').split('/').length==1){
 				var stem = url1.split('/');
-				//stem = stem.pop();
 				stem.pop();
 				if(url2.indexOf('../')>-1){
 					stem.pop();					
 				}
-				
 				stem = stem.join('/');
-				url2 = stem + '/' + url2;//url2.split('/')[0];
+				url2 = stem + '/' + url2;
 			}
-			console.log("compareUrls " + url1 + " and " + url2);
-			
 			
 			var score = 0;
 			var segments1 = url1.split('/');
@@ -375,43 +392,27 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			while(segments1.length && segments2.length && segments1.pop() == segments2.pop()){
 				score++;
 			}
+			
+			//console.log("compareUrls-final " + url1 + " and " + url2 + ", score = " + score);
+			
 			return score;
 		};
 
-/*
-		var test = compareUrls("http://am/test/the/url/equivalence.html", "http://andy/test/the/url/equivalence.html");
-
-		var x1 = "http://am/test/the/url/equivalence.html";
-		var x2 = x1.split('/');
-		x2.pop();
-		
-	//	alert(x1 + " -> " + x2.join('/')  );
-
-		if(test > topScore){
-			topScore = test;
-			matches = ["yp"];
-			console.log("set matches (1) to " + JSON.stringify(matches) + ", score was " + test)
-		}
-		else if(test == topScore){
-			matches.push("x");
-		}
-	*/	
 		var getMatch = function(ob, href, itemHref, isMenu){
+			
 			var test = compareUrls(href, itemHref);
 			
-			console.log("test: " + test);
-
 			if(test > topScore){
-				
-				console.log("test: " + test + " > " + topScore);
-
 				topScore = test;
-				matches = [isMenu ? ob : ob.getSelf()];// [itemHref];
-				console.log("set matches (2) to " + JSON.stringify(matches) + ", score was " + test)
-
+				while(matches.length){
+					matches.pop();
+				}
+				matches.push(ob.getSelf());
+				console.log("set matches (2) to " + ( isMenu ? ob.getHref() + "--menu--" : ob.getHref()  + "--item--" + ob.getLabel()    ) + ", score was " + test)
 			}
 			else if(test == topScore){
-				matches.push(isMenu ? ob : ob.getSelf());
+				matches.push( ob.getSelf() );
+				console.log("append to matches " + ( isMenu ? ob.getHref() + "--menu--" : ob.getHref()  + "--item--" + ob.getLabel()    ) + ", score was " + test)
 			} 			
 		};
 		
@@ -425,38 +426,53 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 				if(itemHref){
 					getMatch(ob, href, itemHref);
 				}
-			});			
+			});
+			
 			$.each(self.subMenus, function(i, ob){
-				ob.findActiveLeaf(href, topScore, matches);
+				var recurseVal = ob.findActiveLeaf(href, topScore, matches);
+				matches  = recurseVal['matches'];
+				topScore = recurseVal['topScore'];
 			});
 			
 		};
 		
 		getMatches(self);
 		
-		//$.each(self.subMenus, function(i, ob){
-		//	getMatches(ob);
-		//});
 		
 		if(self.isRoot){
-			alert("top score " + topScore + ", winner count = " + matches.length);
-		    	
-//			matches[0].setActive();
-			matches[0].doOpen();
-	   // 	$.each(matches, function(){
-   		    	//alert( activeLeaf.doOpen  );   		    		
-	    //	});
+			
+			console.log("matches: " + matches.length + ", topScore = " + topScore);
+			
+			var active = matches[0];
+			active.doOpen();
+			while(active &&  typeof active.getParent != 'undefined' ){
+				active = active.getParent();
+				if(active){
+					active.setActive();					
+				}
+			};
 		}
-		//else{			
-		//	return matches;
-		//}
+		else{			
+			return { "matches" : matches, "topScore" : topScore};
+		}
 		
 	},
 	
 	self.getItemObjects = function(){
 		return self.itemObjects;
 	},
-
+	self.getHref = function(){
+		return self.el.attr('href');
+	},
+	self.getSelf = function(){
+		return self;
+	}
+	self.setActive = function(){
+		self.el.addClass('active');
+		if(self.el.parent().hasClass('section')){
+			self.el.parent().addClass('active')
+		}
+	}
 	self.resize = function(){
 		
 		if(!self.el.is(':visible')){
@@ -474,7 +490,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 
 		var showingMore = isPhone ? false : moreMenu.is(":visible");
 		
-		console.log("showingMore = " + showingMore + ", isPhone = " + isPhone);
+		//console.log("showingMore = " + showingMore + ", isPhone = " + isPhone);
 		
 		var naturalWidth = 0;
 
@@ -535,20 +551,10 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	setTimeout(self.resize, 1);
 		
 	return {
-		//getOpenTabId : function () {
-		//	return self.activeId;
-		//},
-		//getOpenTabIndex : function () {
-		//	return self.activeIndex;
-		//},
 		openItem : function(hash){
 			console.log("exposed openTab");
 			self.openItem(hash);
 		},
-		//openTabAtIndex : function(i){
-		//	self.openTabAtIndex(i);
-		//},
-		
 		getItemObjects : function(){
 			return self.itemObjects;
 		},
@@ -572,8 +578,14 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			return self;
 	    },
 		setActive : function(){
+			self.setActive();
 			alert("active!");
 	    },
+
+		getHref : function(){
+			self.getHref();
+		},
+
 		resize : function(){
 			self.resize();
 		}

@@ -68,7 +68,7 @@ globalNav.init(
 									"en" : "Rights",
 									"it" : "Diritti"
 								},
-								"url" : "index.html",								
+								"url" : "../index.html",								
 								"items" : [
 									{
 										"label" : {
@@ -92,12 +92,30 @@ globalNav.init(
 										"url" : "../rights-3.html"		
 									},
 									{
+										"menu" : true,
 										"label" : {
 											"en" : "Rights 4",
 											"it" : "Diritti 4"
 										},
-										"url" : "../rights-4.html"		
+										"url" : "index.html",
+										"items" : [
+										{
+											"label" : {
+												"en" : "Rights 4.1",
+												"it" : "Diritti 4.2"
+											},
+											"XXXurl" : "rights-1.html"		
+										},
+										{
+											"label" : {
+												"en" : "Rights 4.2",
+												"it" : "Diritti 4.2"
+											},
+											"XXXurl" : "rights-1.html"		
+										}]							
+										
 									}
+									
 								]								
 								
 							},
