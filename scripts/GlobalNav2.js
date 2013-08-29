@@ -31,7 +31,10 @@ var globalNav = function(){
         
         var buildMenu = function(cmp, conf){
         	var menu = $(''
-        	+ '<div class="global-nav-menu-bar"' + (conf.url ? ' href="' + conf.url + '"' : '')  + '>'
+        	+ '<div class="global-nav-menu-bar"'
+        	+ 	(conf.url     ? ' href="'     + conf.url     + '"' : '')
+        	//+ 	(conf.dataUrl ? ' data-url="' + conf.dataUrl + '"' : '')
+        	+ '>'
         	+   '<div class="menu-bar-inner">'
         	+     '<a title="Show more" class="back-item">Back...</a>'
         	+     '<div class="more" style=""></div>'
@@ -168,7 +171,7 @@ var globalNav = function(){
    		 				jQuery.fn['euScroll'] = function(fn){	return fn ? this.bind('scroll', debounce(fn)) : this.trigger(sr); };
 
    		 		})(jQuery,'euRsz');
-
+//return;
        			var rootMenu = new EuMenuBar( $('.left > .global-nav-menu-bar'));
        			rootMenu.resize();
 

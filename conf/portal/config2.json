@@ -8,21 +8,21 @@ globalNav.init(
 							"en" : "Portal",
 							"it" : "Portale"
 						},
-						"url" : "http://localhost/europeana/GlobalNav/apps/portal/index.html"		
+						"url" : "/europeana/GlobalNav/apps/portal/index.html"		
 					},
 					{
 						"label" : {
 							"en" : "1914-1918",
 							"it" : "1914-1918"
 						},
-						"url" : "http://localhost/europeana/GlobalNav/apps/1418/index.html"
+						"url" : "/europeana/GlobalNav/apps/1418/index.html"
 					},
 					{
 						"label" : {
 							"en" : "Exhibitions",
 							"it" : "Mostri"
 						},
-						"url" : "http://localhost/europeana/GlobalNav/apps/exhibitions/index.html"		
+						"url" : "/europeana/GlobalNav/apps/exhibitions/index.html"		
 					}
 			
 			]
@@ -39,14 +39,15 @@ globalNav.init(
 							"en" : "Portal Home",
 							"it" : "Portale - Home"
 						},
-						"url" : "index.html"
+						"url" : "/europeana/GlobalNav/apps/portal/index.html"
 					},
 					{
 						"label" : {
 							"en" : "Search",
 							"it" : "Cerca"
 						},
-						"value" : "search"		
+						"url"     : "/europeana/GlobalNav/apps/portal/search.html",
+						"dataUrl" : "/europeana/GlobalNav/apps/portal/items/"
 					},
 					{
 						"menu" : true,
@@ -94,28 +95,28 @@ globalNav.init(
 									"en" : "Rights",
 									"it" : "Diritti"
 								},
-								"url" : "rights/index.html",								
+								"url" : "/europeana/GlobalNav/apps/portal/rights/index.html",								
 								"items" : [
 									{
 										"label" : {
 											"en" : "Rights 1",
 											"it" : "Diritti 1"
 										},
-										"xxxurl" : "rights-1.html"		
+										"url" : "/europeana/GlobalNav/apps/portal/rights/rights1.html",
 									},
 									{
 										"label" : {
 											"en" : "Rights 2",
 											"it" : "Diritti 2"
 										},
-										"xxxurl" : "rights-2.html"		
+										"url" : "/europeana/GlobalNav/apps/portal/rights/rights2.html",
 									},
 									{
 										"label" : {
 											"en" : "Rights 3",
 											"it" : "Diritti 3"
 										},
-										"xxxurl" : "rights-3.html"		
+										"url" : "/europeana/GlobalNav/apps/portal/rights/rights3.html",
 									},
 									{
 										"menu" : true,
@@ -123,21 +124,19 @@ globalNav.init(
 											"en" : "Rights 4",
 											"it" : "Diritti 4"
 										},
-										"url" : "rights-4/index.html",
+										
+										"url" : "/europeana/GlobalNav/apps/portal/rights/rights4.html",
 										"items" : [
 										{
 											"label" : {
 												"en" : "Rights 4.1",
 												"it" : "Diritti 4.2"
-											},
-											"XXXurl" : "rights-1.html"		
-										},
+											}										},
 										{
 											"label" : {
 												"en" : "Rights 4.2",
 												"it" : "Diritti 4.2"
-											},
-											"XXXurl" : "rights-1.html"		
+											}		
 										}]							
 										
 									}
@@ -310,18 +309,18 @@ globalNav.init(
 	
 	"js" : {
 		"scripts" : [
-		   "http://localhost/europeana/GlobalNav/scripts/EuAccessibility.js",
-		   "http://localhost/europeana/GlobalNav/scripts/EuGlobalMenu.js",
-		   "http://localhost/europeana/GlobalNav/scripts/EuMenuBar.js"
+		   "/europeana/GlobalNav/scripts/EuAccessibility.js",
+		   "/europeana/GlobalNav/scripts/EuGlobalMenu.js",
+		   "/europeana/GlobalNav/scripts/EuMenuBar.js"
 		]
 	},
 	
 	"css" : {
 		
 		"stylesheets" : [
-			"http://localhost/europeana/GlobalNav/styles/application2.css",
-			"http://localhost/europeana/GlobalNav/styles/EuGlobalMenu2.css",
-			"http://localhost/europeana/GlobalNav/styles/GlobalNavMenuBar.css"
+			"/europeana/GlobalNav/styles/application2.css",
+			"/europeana/GlobalNav/styles/EuGlobalMenu2.css",
+			"/europeana/GlobalNav/styles/GlobalNavMenuBar.css"
 		]
 		
 	}

@@ -51,6 +51,7 @@ var MenuItem = function (elIn, parentIn) {
 	
 	self.getHref= function(){
 		var href =  self.a.attr('href');
+		//var href =  self.href;
 		return typeof href == 'undefined' ? false : href;
 	}
 	
@@ -99,10 +100,21 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	self.itemObjects = [];
 	self.el			 = elIn;
 	self.activeId	 = '';
-	self.activeHash	 = '';
+	
+	self.activeHash	 = '';  /*  ??? */
+	
 	self.callback	 = callbackIn;
 	self.subMenus    = [];	
 	self.el.addClass('global-nav-menu-bar');
+
+	/* when we don't want to have to provide a page to match */
+	var dataUrl = self.el.attr('data-url');
+	//if(dataUrl.length){
+	//	self.catchUrls   =  '';		
+	//}
+	self.catchUrls = self.el.attr('data-url');
+	
+	
 	
 	// functions
 
