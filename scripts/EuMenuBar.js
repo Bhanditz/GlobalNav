@@ -15,9 +15,6 @@ var MenuItem = function (elIn, parentIn) {
 			self.a .removeClass('active');
 			self.el.removeClass('active');
 		}
-		//if(alreadyOpen && self.a.css('display')=='block'){ // only allow hide on mobile view
-		//	self.parent.selectionMade(false, false, false);
-		//}
 		else{
 			self.a .addClass('active');
 			self.el.addClass('active');
@@ -84,9 +81,9 @@ var MenuItem = function (elIn, parentIn) {
 			return self.getParent();
 		},
 		click : function(){
-			console.log("expose the click");
 			self.doOpen();
 		}
+		
 	};
 };
 	
@@ -105,14 +102,16 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	
 	self.callback	 = callbackIn;
 	self.subMenus    = [];	
+	self.initialised = false;
+	
 	self.el.addClass('global-nav-menu-bar');
 
 	/* when we don't want to have to provide a page to match */
-	var dataUrl = self.el.attr('data-url');
+	//self.dataUrl = self.el.attr('data-url');
 	//if(dataUrl.length){
 	//	self.catchUrls   =  '';		
 	//}
-	self.catchUrls = self.el.attr('data-url');
+	//self.catchUrls = self.el.attr('data-url');
 	
 	
 	
@@ -120,12 +119,14 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 
 	self.selectionMade = function(id, hash){
 		
+		//self.getMoreItem().css('width', 'auto');
+		
 		self.activeId      = id;
 		self.activeHash    = hash;
-
 		self.showLess();
 		
 		if(self.callback){
+			// TODO delete this inherited code?
 			self.callback(id, hash);
 		}
 	};
@@ -147,30 +148,34 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	self.isPhone = function(){
 		var phoneDiv = $('#phone-detect').length ? $('#phone-detect') : $('<div id="phone-detect" style="position:absolute;top:-1000px">').appendTo('body');
 		var res = phoneDiv.width() == 1;
-		console.log('isPhone = ' + res);
+		//console.log('isPhone = ' + res);
 		return res;		
 	};
 
 	self.rowFits = function(){
 		// get ref to active section
+		
 		var result       = true;
-		var menuBar      = self.el;		
+
+		var menuBar      = self.el;
 		var menuBarInner = menuBar.children('.menu-bar-inner');
 		var active       = menuBarInner.children('.section.active');
-		var borderHeight = 2;
-
+		var borderHeight = 4;
+		
 		// limit row height to one 
 		menuBar.addClass('measure-mode');
 		active.removeClass('active');
 
+		//console.log(	menuBarInner[0].offsetHeight + " > " +  (menuBar.height() + borderHeight)   );
+		
 		if(	menuBarInner[0].offsetHeight > menuBar.height() + borderHeight ){
 			result = false;
 		}
-		
+
 		// restore active and remove row height limit
 		active.addClass('active');
-		menuBar.removeClass('measure-mode');
-		
+		menuBar.removeClass('measure-mode');	
+			
 		return result;
 	};
 	
@@ -222,38 +227,77 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	self.showMore = function(e){
 		// close other open menus
 		self.closeItems();
-		
-		var holdWidth = self.el.width();
-		
 		self.getBackItem().css('display', self.isPhone() ? 'block' : 'none');
 		self.getMoreItem().css('display', 'none');
 
 		self.buildMore();
 		self.getItems().css('display', 'none');
-		
-		self.el.css('width', holdWidth + 'px');
 	};
 
-	self.showLess = function(){
-		// called on selectionMade as well as on click
-		var displayClassItems = self.isPhone() ? 'block' : 'inline-block';
+	self.showLess = function(isRecurse){
+		
+		/*
+		  Called by click on an item or a proxy item:
+		   - hides more menu
+		   - hides back item
+		   - shows items
+		   - calls resize, which as well as hiding boundary exceeding divs 
+		     divs also serves to show only the lowest (deepest) active menu
+		     items
+		*/
+		
+		var displayClassItems = self.isPhone() ? 'block' : 'inline-block';//'table-cell';
 		
 		self.getMoreMenu().css('display', 'none');
 		self.getBackItem().css('display', 'none');
-		//self.getMoreItem().css('display', 'none');
 		self.getItems()   .css('display', displayClassItems);
+		
+		/* resize has to happen before recurse to trim visible items */
+		/*
 		self.resize();
+		
 		$.each(self.subMenus, function(i, ob){
-			ob.showLess();
+			ob.showLess(true);
 		});
+		*/
+		
+		/* perhaps only at root level - consider moving into the next block: */
+		$.each(self.subMenus, function(i, ob){
+			ob.showLess(true);
+		});
+		
+		if(typeof isRecurse == 'undefined'){			
+			if(self.initialised && self.isPhone()){
+				self.transitionForward(true);
+				setTimeout(self.transitionForward, 1);
+			}
+			self.resize();
+		}
+
+
+		
+	};
+
+	self.transitionBack = function(setup){
+		setup ?	self.el.addClass('pre-transition-back') : self.el.removeClass('pre-transition-back');	
+	};
+
+	self.transitionForward = function(setup){
+		if(setup){
+			self.el.addClass('pre-transition-fwd');
+		}
+		else{
+			self.el.removeClass('pre-transition-fwd');			
+		}		
 	};
 	
+	/* only called from mobile view */
 	self.goBack = function(e){
-		$(e.target).closest('.section').prev('a').click();
-		var menuBar = self;
-		while(typeof menuBar != 'undefined'){
-			menuBar.resize();
-			menuBar = menuBar.getParent();
+		if(typeof $(e.target).attr('href') == 'undefined'){
+			self.parent.closeItems();
+			self.parent.transitionBack(true);
+			self.parent.resize();
+			self.parent.transitionBack();			
 		}
 	};
 	
@@ -309,7 +353,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 								//moreMenu.css('display', 'none');
 								self.itemObjects[index].click(e);
 							});						
-						}();		
+						}();
 						itemsAdded++;
 					}
 				}
@@ -324,17 +368,6 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			}
 		}
 	};
-
-	/*
-	self.openTabAtIndex = function(i){
-		alert("openTabAtIndex");
-		if(self.itemObjects[i]){
-			self.itemObjects[i].openTab();			
-		}
-		else{
-			console.log("no such tab: " + i);
-		}
-	};*/
 	
 	// end functions
 
@@ -376,7 +409,11 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			ob.hideInactive();
 		});
 	};
-
+	
+	self.getActivatingLink = function(){
+		return self.el.closest('.section').prev('a');
+	};
+	
 	self.findActiveLeaf = function(href, topScore, matches){
 		
 		var url      = href.split('/').pop();
@@ -460,7 +497,8 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			while(active &&  typeof active.getParent != 'undefined' ){
 				active = active.getParent();
 				if(active){
-					active.setActive();					
+					active.setActive();
+					active.getActivatingLink().addClass('active');
 				}
 			};
 		}
@@ -468,23 +506,33 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			return { "matches" : matches, "topScore" : topScore};
 		}
 		
-	},
+	};
 	
 	self.getItemObjects = function(){
 		return self.itemObjects;
-	},
+	};
+	
 	self.getHref = function(){
 		return self.el.attr('href');
-	},
+	};
+	
 	self.getSelf = function(){
 		return self;
-	}
+	};
+	
 	self.setActive = function(){
 		self.el.addClass('active');
 		if(self.el.parent().hasClass('section')){
 			self.el.parent().addClass('active')
 		}
-	}
+	};
+	
+	self.resetMoreItem = function(moreItem){
+		//return;
+		moreItem = moreItem ? moreItem : self.getMoreItem();
+		moreItem.css('width', 'auto');
+	};
+	
 	self.resize = function(){
 		
 		if(!self.el.is(':visible')){
@@ -497,14 +545,11 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		var menuBarMore  = self.getMoreItem();
 		var menuBarItems = self.getItems();
 		var moreMenu     = self.getMoreMenu()
-		
-		self.el.css('width', 'auto');
-
-		var showingMore = isPhone ? false : moreMenu.is(":visible");
+			
+		var showingMore  = isPhone ? false : moreMenu.is(":visible");
 		
 		//console.log("showingMore = " + showingMore + ", isPhone = " + isPhone);
 		
-		var naturalWidth = 0;
 
 		if(isPhone){
 		
@@ -526,7 +571,6 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			menuBack    .css('display', 'none');			
 			menuBarItems.css('display', displayClass);
 
-			
 			if(!self.rowFits()){
 				
 				menuBarMore.css('display', displayClass);
@@ -534,16 +578,16 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 				
 				$.each(menuBarItems, function(i, ob){
 					$(ob).css('display', displayClass);
+
+					var fits = self.rowFits();
 					
-					if(!self.rowFits()){
-						$(ob).css('display', 'none');
-						console.log('hide ' + $(ob).html() );
+					// console.log('fits? ' + fits + ' - \n' + $(ob).html() + '\nparentW = ' + ( $('.main>.global-nav-menu-bar').width()  ) + '\n  /end fits'  );
+
+					if(!fits){
+						$(ob).css('display', 'none');						
 						return false;
 					}
 				});
-				
-				naturalWidth = self.el.width();
-				console.log("naturalWidth = " + naturalWidth);
 				
 				if(showingMore){
 					self.showMore();
@@ -558,10 +602,35 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		$.each(self.subMenus, function(i, ob){
 			ob.resize();
 		});	
+
+		/* if showing more item make it fill all remaining width */
+
+		return;
+
+		if(menuBarMore.css('display') == displayClass ){
+			self.resetMoreItem(menuBarMore);
+			var totalWidth = 0;
+			$.each(menuBarItems, function(i, ob){
+				ob = $(ob);
+				if( ob.css('display') != 'none' ){
+					console.log( ob.html()  ) 
+					console.log( " w = " + ob.outerWidth()  ) 
+					totalWidth += ob.outerWidth();
+					
+				}
+			});
+			var moreItemWidth = self.el.width() - totalWidth;
+			console.log('self.el.width() = ' + self.el.width() + ', moreItemWidth = ' + moreItemWidth);
+			menuBarMore.css('width', moreItemWidth + 'px');
+		}
 	};
 	
-	setTimeout(self.resize, 1);
-		
+	// timeout needed since recursive functions use the return
+	setTimeout(function(){
+		self.initialised = true;
+		self.resize()	
+	}, 1);
+	
 	return {
 		openItem : function(hash){
 			console.log("exposed openTab");
@@ -573,16 +642,18 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		closeItems : function(){
 			self.closeItems();
 		},
-		showLess : function(){
-			self.showLess();
+		showLess : function(isRecurse){
+			self.showLess(isRecurse);
 		},
 		hideInactive : function(){
 			self.hideInactive();
 		},
 		getParent : function(){
-			// TODO: delete - not needed as the resize-on-parent can be used on self.parent without recurse
 			return self.getParent();
 		},
+		getActivatingLink : function(){
+			return self.getActivatingLink();
+	    },
 		findActiveLeaf : function(href, topScore, matches){
 			return self.findActiveLeaf(href, topScore, matches);
 	    },
@@ -591,13 +662,24 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	    },
 		setActive : function(){
 			self.setActive();
-			alert("active!");
 	    },
 
 		getHref : function(){
 			self.getHref();
 		},
-
+/*
+		close : function(){
+			self.close() 	
+		},
+*/
+		transitionBack : function(setup){
+			self.transitionBack(setup);
+		},
+		
+		transitionFwd : function(setup){
+			self.transitionFwd(setup);
+		},
+		
 		resize : function(){
 			self.resize();
 		}

@@ -24,19 +24,19 @@ var globalNav = function(){
     	
     	var nav = $('<nav class="eu-global-nav">').prependTo('body');
         
-    	// Left - Right floats
+    	// Left - Right cells
 
-        var topBarLeft  = $('<div class="left">').appendTo(nav);
-        var topBarRight = $('<div class="right">').appendTo(nav);
+        var topBarMain  = $('<div class="main">').appendTo(nav);
+        //var topBarRight = $('<div class="right">').appendTo(nav);
         
-        var buildMenu = function(cmp, conf){
+        var buildMenu = function(cmp, conf, isRecurse){
         	var menu = $(''
         	+ '<div class="global-nav-menu-bar"'
         	+ 	(conf.url     ? ' href="'     + conf.url     + '"' : '')
-        	//+ 	(conf.dataUrl ? ' data-url="' + conf.dataUrl + '"' : '')
+        	+ 	(conf.dataUrl ? ' data-url="' + conf.dataUrl + '"' : '')
         	+ '>'
         	+   '<div class="menu-bar-inner">'
-        	+     '<a title="Show more" class="back-item">Back...</a>'
+        	+     '<a title="Go up" class="back-item" ' + (conf.backUrl ? ' href="' + conf.backUrl + '" ' : '') + '>Back...</a>'
         	+     '<div class="more" style=""></div>'
         	+     '<a title="Show more" class="more-item">More...</a>'
         	+     '</div>'
@@ -45,49 +45,66 @@ var globalNav = function(){
         	).appendTo(cmp);
         	menu = menu.children('.menu-bar-inner');
         	menu = menu.children('.more');
-
+        	
+        	 
         	$(conf.items).each(function(i, ob){        		
-        		menu.before('<a title="' + ob.label[locale] + '" ' + (ob.url ? 'href="' + ob.url + '"' : '') + ' class="menu-item"' + '>'
-        			+ ob.label[locale]
+        		
+        		var itemClass   = 'menu-item';
+        		var itemContent = '<span class="link-label">' + ob.label[locale] + '</span>';
+        		/*
+        		if(!isRecurse && i==0){
+            		itemClass   = 'menu-item home-item';
+            		itemContent = '';
+        		}
+        		else 
+        		*/
+        		if(ob.menu){
+        			itemContent += '&nbsp; <span class="arrow"></span>';
+        		}
+    			//itemContent = '<span style="position:relative; white-space:nowrap;">' + itemContent + '</span>';
+        		
+        		menu.before('<a title="' + ob.label[locale] + '" '
+        			+ (ob.url ? 'href="' + ob.url + '"' : '')
+ //       			+ ' class="menu-item' + (ob.menu && true ? ' arrow-down' : '') + '"'
+//        			+ ' class="menu-item"'
+        			+ ' class="' + itemClass + '"'
+        			+ '>'
+//        			+ ob.label[locale]
+        			+ itemContent //'<span class="link-label">' + ob.label[locale] + '</span>'
+//        			+ (ob.menu ? '&nbsp; <span class="arrow"></span>' : '')
         			+ '</a>');
         		if(ob.menu){
         			menu.before('<div class="section"></div>');
-        			buildMenu(menu.prev('.section'), ob);
-        		}});
+        			buildMenu(menu.prev('.section'), ob, true);
+        		}
+        	});
+        	
+        	  
+        	 
+        	
         };
         
         
-		// Left
+		// Main
 		$.each(config.left, function(key, val) {
 	        if(typeof val == 'object' && val.menu){
-        		buildMenu(topBarLeft, val);
+        		buildMenu(topBarMain, val);
 	        }
 	        // topBarLeft.append(divider());
 		});
 
 
-		// Right
-		/*
-		$.each(config.right, function(key, val){
-			
-			//topBarRight.append(divider());
-			
-	        if(typeof val == 'string'){
-	        	topBarRight.append('<li><a href="#">' + val + '</a></li>');		        	
-	        }
-	        else if(typeof val == 'object'){
-	        	buildMenu(topBarRight, val, "vMenu", 0);
-	        }
-		});
-		*/
-    	//alert("end inithtml");
-		
+		var topBarRight = $('<div class="global-search"><div><input></div></div>').appendTo(nav);
+		var cmpHome   = '<h4 id="global-home">a</h4>';
+
+		nav.prepend(cmpHome);
+
     	if(config.pulldown){
     		var pullDown       = $('<div class="pull-down closed"><ul></ul></div>').prependTo('body');
     		pullDown.after('<div class="opener-wrapper"><a class="opener">a</a></a>');
     		
-    		
         	var pullDownList = pullDown.children('ul');
+        	
         	if(config.pulldown.items){
             	
             	$.each(config.pulldown.items, function(i, ob){
@@ -101,10 +118,15 @@ var globalNav = function(){
 				if(pullDown.hasClass('closed')){
 					pullDown.removeClass('closed');
 					pullDown.addClass('opened');
+					
+					//$('.opener-wrapper').css('position', 'absolute');
 				}
 				else{
 					pullDown.removeClass('opened');
 					pullDown.addClass('closed');					
+					
+					//$('.opener-wrapper').css('position', 'fixed');
+
 				}
 				
 			});
@@ -172,7 +194,7 @@ var globalNav = function(){
 
    		 		})(jQuery,'euRsz');
 //return;
-       			var rootMenu = new EuMenuBar( $('.left > .global-nav-menu-bar'));
+       			var rootMenu = new EuMenuBar( $('.main > .global-nav-menu-bar'));
        			rootMenu.resize();
 
    		 		$(window).euRsz(function(){

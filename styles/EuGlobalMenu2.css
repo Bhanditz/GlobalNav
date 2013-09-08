@@ -3,12 +3,12 @@ body, html{
   padding:  0;
 }
 
+/* pulldown (right) */
+
 .pull-down{
 	background-color:   #a2a2a2;
-	XXXborder-bottom:      1px solid #333;
 	overflow:           hidden;
 	z-index:            0;
-
 					
 	-webkit-transition: max-height 0.7s ease-in-out;
     -moz-transition:    max-height 0.7s ease-in-out;
@@ -33,7 +33,8 @@ body, html{
 }
 
 .opener-wrapper{
-	position:         fixed;
+	XXXposition:         fixed;
+	position:         absolute;
 	margin:           auto;
 	width:            100%;
 }
@@ -53,3 +54,109 @@ body, html{
 	position:         relative;
 	z-index:          2;
 }
+
+
+/* home (left) */
+
+.eu-global-nav #global-home{
+
+	background-color: #fff;
+	color:            #AD310B;
+	display:          none;
+	
+	font-family: europeana;	
+	font-size:4em;
+	
+	margin:0;
+	padding:0;
+	
+	position:relative;
+	
+	text-align:center;
+	
+	vertical-align: middle;
+	
+	width:1.5em;
+	
+	max-width:1.5em;
+	min-width:1.5em;
+	
+	z-index: 2;
+}
+
+
+.eu-global-nav .global-search{
+	width:     22em;
+	max-width: 22em;
+	min-width: 22em;
+}
+
+
+.eu-global-nav #global-home.active,
+.eu-global-nav #global-home:hover{
+	text-decoration: none;
+     background-color: #AD310B;
+     color: #fff;     
+}
+
+.eu-global-nav #global-home,
+.eu-global-nav #global-home.active,
+.eu-global-nav #global-home:hover{
+     -webkit-transition: color 1000ms linear;
+     -moz-transition:    color 1000ms linear;
+     -o-transition:      color 1000ms linear;
+     -ms-transition:     color 1000ms linear;
+     transition:         color 1000ms linear;
+
+     -webkit-transition: background-color 1000ms linear;
+     -moz-transition:    background-color 1000ms linear;
+     -o-transition:      background-color 1000ms linear;
+     -ms-transition:     background-color 1000ms linear;
+     transition:         background-color 1000ms linear;
+}
+
+/* main */
+
+/* search */
+
+.eu-global-nav .main,
+.eu-global-nav .global-search{
+	display: block;
+}
+
+
+.global-search{
+	text-align: center;
+}
+
+
+.global-search input{
+	outline:   none;	
+	width:     100%;
+}
+
+
+@media only screen and ( min-width:28em ){
+
+
+	.global-search div{
+		padding:     1em;
+		box-sizing:			border-box;
+		-moz-box-sizing:	border-box;
+		-webkit-box-sizing:	border-box;		
+	}
+	
+	.global-search input{
+		margin-top:  2.12em;
+	}
+
+	
+	.eu-global-nav .main,
+	.eu-global-nav .global-search,
+	.eu-global-nav #global-home{
+		display: table-cell;
+		vertical-align: top;
+	}
+
+}
+

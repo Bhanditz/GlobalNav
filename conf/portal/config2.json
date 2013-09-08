@@ -82,6 +82,7 @@ globalNav.init(
 							"en" : "About Portal",
 							"it" : "Informazioni sul Portale"
 						},
+						"backUrl" : "/europeana/GlobalNav/apps/portal/index.html",
 						"items" : [
 							{
 								"label" : {
@@ -95,7 +96,9 @@ globalNav.init(
 									"en" : "Rights",
 									"it" : "Diritti"
 								},
-								"url" : "/europeana/GlobalNav/apps/portal/rights/index.html",								
+								"url"     : "/europeana/GlobalNav/apps/portal/rights/index.html",
+								"dataUrl" : "/europeana/GlobalNav/apps/portal/rights/index.html",
+								"xxbackUrl" : "/europeana/GlobalNav/apps/portal/index.html",													
 								"items" : [
 									{
 										"label" : {
@@ -126,6 +129,7 @@ globalNav.init(
 										},
 										
 										"url" : "/europeana/GlobalNav/apps/portal/rights/rights4.html",
+										"backUrl" : "/europeana/GlobalNav/apps/portal/rights/index.html",
 										"items" : [
 										{
 											"label" : {
