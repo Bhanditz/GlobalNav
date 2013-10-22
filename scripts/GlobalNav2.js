@@ -22,8 +22,8 @@ var globalNav = function(){
     
     var initHtml = function(config){
     	
-    	var nav = $('<nav class="eu-global-nav">').prependTo('body');
-        
+    	var nav    = $('<nav class="eu-global-nav">').prependTo('body');
+    	
     	// Left - Right cells
 
         var topBarMain  = $('<div class="main">').appendTo(nav);
@@ -99,39 +99,23 @@ var globalNav = function(){
 
 		nav.prepend(cmpHome);
 
-    	if(config.pulldown){
-    		var pullDown       = $('<div class="pull-down closed"><ul></ul></div>').prependTo('body');
-    		pullDown.after('<div class="opener-wrapper"><a class="opener">a</a></a>');
-    		
-        	var pullDownList = pullDown.children('ul');
-        	
-        	if(config.pulldown.items){
-            	
-            	$.each(config.pulldown.items, function(i, ob){
-            		pullDownList.append('<li><a ' + (ob.url ? 'href="' + ob.url + '" ' : '') + '>' + ob.label[locale] + '</a></li>')
-            	});        		
-        	}
-        	
-			$('.opener-wrapper>.opener').click(function(){
-				var pullDown = $('.pull-down');
-				
-				if(pullDown.hasClass('closed')){
-					pullDown.removeClass('closed');
-					pullDown.addClass('opened');
-					
-					//$('.opener-wrapper').css('position', 'absolute');
-				}
-				else{
-					pullDown.removeClass('opened');
-					pullDown.addClass('closed');					
-					
-					//$('.opener-wrapper').css('position', 'fixed');
+		$('#global-home').click(function(){
+			document.location = config.home;			
+		});
 
-				}
-				
-			});
-    	}
+		
 
+		if(config.breadcrumbs){
+			nav.after('<div class="breadcrumbs"></div>');
+			
+        	$(config.breadcrumbs).each(function(i, ob){        		
+        		var breadcrumb = '<a class="breadcrumb" style="margin-right:1em;" href="' + ob.url + '">' + ob.label[locale] + '</a>';
+        		$('.breadcrumbs').append(breadcrumb);
+        	});
+			
+		}
+
+		
 		
     };
     
@@ -211,12 +195,82 @@ var globalNav = function(){
     	recursiveLoad(0);   	
     }
     
+    var initPulldown = function(config){
+    	
+		var pullDown       = $('<div class="pull-down closed"><ul></ul></div>').prependTo('body');
+		pullDown.after('<div class="opener-wrapper"><a class="opener">a</a></a>');
+		
+    	var pullDownList = pullDown.children('ul');
+    	
+
+    	if(config.pulldown.items){
+        	$.each(config.pulldown.items, function(i, ob){
+        		pullDownList.append('<li><a ' + (ob.url ? 'href="' + ob.url + '" ' : '') + '>' + ob.label[locale] + '</a></li>')
+        	});        		
+    	}
+    	
+		$('.opener-wrapper>.opener').click(function(){
+			var pullDown = $('.pull-down');
+			if(pullDown.hasClass('closed')){
+				pullDown.removeClass('closed');
+				pullDown.addClass('opened');
+				
+				//$('.opener-wrapper').css('position', 'absolute');
+			}
+			else{
+				pullDown.removeClass('opened');
+				pullDown.addClass('closed');					
+				
+				//$('.opener-wrapper').css('position', 'fixed');
+
+			}
+			
+		});
+    	
+		// test utility
+		if( $('#conf-local').length == 0 ){
+		
+			var boxSizing = '-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;'
+				
+			$('body').append('<div id="dev" style="' + boxSizing + ' padding-left:1em; padding-right: 1em;"></div>');
+		
+			$('#dev').append('<textarea id="conf-local" rows="10" style="width:100%;"></textarea>');
+			$('#dev').append('<a id="reload-conf-local">reload</a>');
+			
+			$('#conf-local').val(JSON.stringify(origConfig));
+			
+			$('#reload-conf-local').click(function(){
+				
+				$('.pull-down').remove();
+				$('.opener-wrapper').remove();
+				$('.eu-global-nav').remove();
+				globalNav.init(  $.parseJSON(  $('#conf-local').val() )   );		
+			});
+		
+	 	}
+    
+
+    };
+    
     return {
     	init: function(data){
     	  origConfig = data;
   		  initCSS(data.css);
      	  initHtml(data.html);
           initJS(data.js);
+          
+          if(data.pulldownConf){
+  	  		$.getJSON(data.pulldownConf + "?callback=?")
+			.fail(
+			    function(e){
+			    	//alert("Error " + JSON.stringify(e));
+	      		   // console.log( "Config error [" + configUrl + "]: " + e.statusText + "  " + JSON.stringify(e) );
+			    }
+			);        	  
+          }
+    	},
+    	initPulldown: function(data){
+    		initPulldown(data);
     	},
         load:function(configUrl){
         	$(document).ready(function(){

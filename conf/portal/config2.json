@@ -1,32 +1,36 @@
 globalNav.init(
 {
+	"pulldownConf" : "http://localhost/europeana/GlobalNav/conf/global.json",
+		
 	"html" : {
-		"pulldown" : {
-			"items" : [
-					{
-						"label" : {
-							"en" : "Portal",
-							"it" : "Portale"
-						},
-						"url" : "/europeana/GlobalNav/apps/portal/index.html"		
-					},
-					{
-						"label" : {
-							"en" : "1914-1918",
-							"it" : "1914-1918"
-						},
-						"url" : "/europeana/GlobalNav/apps/1418/index.html"
-					},
-					{
-						"label" : {
-							"en" : "Exhibitions",
-							"it" : "Mostri"
-						},
-						"url" : "/europeana/GlobalNav/apps/exhibitions/index.html"		
-					}
-			
-			]
-		},	
+		
+		"home" : "http://localhost/europeana/GlobalNav/apps/portal/index.html",
+		
+		"breadcrumbs" : [
+
+			{
+				"label" : {
+					"en" : "Crumb 1",
+					"it" : "Bricciola 1"
+				},
+				"url" : "http://www.google.co.uk"
+			},
+			{
+				"label" : {
+					"en" : "Crumb 2",
+					"it" : "Bricciola 2"
+				},
+				"url" : "http://www.google.co.uk"
+			},
+			{
+				"label" : {
+					"en" : "Crumb 3",
+					"it" : "Bricciola 3"
+				},
+				"url" : "http://www.google.co.uk"
+			}		
+		],
+		
 		"left"  : [
 			
 							

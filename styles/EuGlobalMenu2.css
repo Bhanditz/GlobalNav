@@ -60,7 +60,13 @@ body, html{
 
 .eu-global-nav #global-home{
 
-	background-color: #fff;
+	background-color:    #fff;
+	
+	XXXborder-style:        solid;
+	XXXborder-width:        3px;
+	
+	border:                 3px solid #AD310B;
+	
 	color:            #AD310B;
 	display:          none;
 	
@@ -76,12 +82,11 @@ body, html{
 	
 	vertical-align: middle;
 	
-	width:1.5em;
+	width:     1.2em;
+	max-width: 1.2em;
+	min-width: 1.2em;
 	
-	max-width:1.5em;
-	min-width:1.5em;
-	
-	z-index: 2;
+	z-index:   2;
 }
 
 
@@ -94,9 +99,19 @@ body, html{
 
 .eu-global-nav #global-home.active,
 .eu-global-nav #global-home:hover{
-	text-decoration: none;
-     background-color: #AD310B;
-     color: #fff;     
+	text-decoration:     none;
+    background-color:    #AD310B;
+    color:               #fff;
+    
+   	border-color:        #fff;
+   	
+   	
+    XXXborder-color-left:   #fff;    
+    XXXborder-color-right:  #fff;
+    XXXborder-color-top:    #fff;
+    XXXborder-color-bottom: #fff;
+    
+    
 }
 
 .eu-global-nav #global-home,
@@ -113,7 +128,41 @@ body, html{
      -o-transition:      background-color 1000ms linear;
      -ms-transition:     background-color 1000ms linear;
      transition:         background-color 1000ms linear;
+     
+     
+     
+     /*
+	-webkit-transition:  border-color-left 250ms linear;
+     -moz-transition:    border-color-left 250ms linear;
+     -o-transition:      border-color-left 250ms linear;
+     -ms-transition:     border-color-left 250ms linear;
+     transition:         border-color-left 250ms linear;
+
+	-webkit-transition:  border-color-top 500ms linear;
+     -moz-transition:    border-color-top 500ms linear;
+     -o-transition:      border-color-top 500ms linear;
+     -ms-transition:     border-color-top 500ms linear;
+     transition:         border-color-top 500ms linear;
+
+	-webkit-transition:  border-color-right 750ms linear;
+     -moz-transition:    border-color-right 750ms linear;
+     -o-transition:      border-color-right 750ms linear;
+     -ms-transition:     border-color-right 750ms linear;
+     transition:         border-color-right 750ms linear;
+
+	-webkit-transition:  border-color-bottom 1000ms linear;
+     -moz-transition:    border-color-bottom 1000ms linear;
+     -o-transition:      border-color-bottom 1000ms linear;
+     -ms-transition:     border-color-bottom 1000ms linear;
+     transition:         border-color-bottom 1000ms linear;
+
+*/
+
+     
 }
+
+
+
 
 /* main */
 
