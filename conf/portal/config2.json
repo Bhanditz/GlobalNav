@@ -9,26 +9,34 @@ globalNav.init(
 		"breadcrumbs" : [
 
 			{
-				"label" : {
-					"en" : "Crumb 1",
-					"it" : "Bricciola 1"
-				},
-				"url" : "http://www.google.co.uk"
-			},
-			{
-				"label" : {
-					"en" : "Crumb 2",
-					"it" : "Bricciola 2"
-				},
-				"url" : "http://www.google.co.uk"
-			},
-			{
-				"label" : {
-					"en" : "Crumb 3",
-					"it" : "Bricciola 3"
-				},
-				"url" : "http://www.google.co.uk"
-			}		
+				"page"   : "apps/portal/rights/index.html",
+				"crumbs" : [
+
+					{
+						"label" : {
+							"en" : "Crumb 1",
+							"it" : "Bricciola 1"
+						},
+						"url" : "http://www.google.co.uk"
+					},
+					{
+						"label" : {
+							"en" : "Crumb 2",
+							"it" : "Bricciola 2"
+						},
+						"url" : "http://www.google.co.uk"
+					},
+					{
+						"label" : {
+							"en" : "Crumb 3",
+							"it" : "Bricciola 3"
+						},
+						"url" : "http://www.google.co.uk"
+					}		
+				
+				]
+			}
+			
 		],
 		
 		"left"  : [

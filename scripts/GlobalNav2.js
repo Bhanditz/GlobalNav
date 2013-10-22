@@ -100,17 +100,36 @@ var globalNav = function(){
 		nav.prepend(cmpHome);
 
 		$('#global-home').click(function(){
-			document.location = config.home;			
+			document.location = config.home;
 		});
 
 		
 
 		if(config.breadcrumbs){
+			
 			nav.after('<div class="breadcrumbs"></div>');
 			
-        	$(config.breadcrumbs).each(function(i, ob){        		
-        		var breadcrumb = '<a class="breadcrumb" style="margin-right:1em;" href="' + ob.url + '">' + ob.label[locale] + '</a>';
-        		$('.breadcrumbs').append(breadcrumb);
+        	$(config.breadcrumbs).each(function(i, ob){
+        		
+        		
+        		
+        		if( typeof ob.page != 'undefined' && typeof ob.crumbs != 'undefined'){
+        	
+        			var regex = new RegExp('[\S]*' + ob.page + '[\S]*');
+        			if(regex.test(href)){
+
+            			$(ob.crumbs).each(function(j, crumb){
+
+                    		var breadcrumb = '<a class="breadcrumb" style="margin-right:1em;" href="' + crumb.url + '">' + crumb.label[locale] + '</a>';
+                    		$('.breadcrumbs').append(breadcrumb);
+
+            			});
+
+        			}
+        			
+        			
+        		}
+        		
         	});
 			
 		}
