@@ -87,7 +87,7 @@ var EuGlobalMenu = function(cmpIn, options){
 	self.ops.children("a").click(
 		function(e){
 			
-	
+alert("CLICK")	
 			var selected = $(this).attr("class");
 			self.href = $(this).attr("href");
 			

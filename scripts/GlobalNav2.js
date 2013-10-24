@@ -196,7 +196,8 @@ var globalNav = function(){
    		 				jQuery.fn['euScroll'] = function(fn){	return fn ? this.bind('scroll', debounce(fn)) : this.trigger(sr); };
 
    		 		})(jQuery,'euRsz');
-//return;
+   		 		
+   		 		
        			var rootMenu = new EuMenuBar( $('.main > .global-nav-menu-bar'));
        			rootMenu.resize();
 
@@ -205,10 +206,7 @@ var globalNav = function(){
    		 		});
    		 		
    		 		// set the active
-   		 		//alert(href)
    		    	rootMenu.findActiveLeaf(href);
-   		    	
-   		    	
        	   }
     	};
     	recursiveLoad(0);   	
@@ -248,15 +246,14 @@ var globalNav = function(){
     	
 		// test utility
 		if( $('#conf-local').length == 0 ){
-		
 			var boxSizing = '-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;'
 				
 			$('body').append('<div id="dev" style="' + boxSizing + ' padding-left:1em; padding-right: 1em;"></div>');
 		
-			$('#dev').append('<textarea id="conf-local" rows="10" style="width:100%;"></textarea>');
+			$('#dev').append('<textarea id="conf-local" rows="15" style="width:100%;"></textarea>');
 			$('#dev').append('<a id="reload-conf-local">reload</a>');
 			
-			$('#conf-local').val(JSON.stringify(origConfig));
+			$('#conf-local').val(JSON.stringify(origConfig, null, 4));
 			
 			$('#reload-conf-local').click(function(){
 				

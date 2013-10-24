@@ -15,10 +15,10 @@ globalNav.init(
 				
 					{
 						"label" : {
-							"en" : "Welcome Home",
-							"it" : "Benvenuti a Casa"
+							"en" : "Explore",
+							"it" : "Esplora"
 						},
-						"url" : "index.html"		
+						"value" : "explore"		
 					},
 					{
 						"label" : {
