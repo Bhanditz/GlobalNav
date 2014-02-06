@@ -1,10 +1,11 @@
+
 globalNav.init(
 {
-	"pulldownConf" : "http://localhost/europeana/GlobalNav/conf/global.json",
+	"pulldownConf" : "/conf/global.json",
 		
 	"html" : {
 		
-		"home" : "http://localhost/europeana/GlobalNav/apps/portal/index.html",
+		"home" : "/apps/portal/index.html",
 		
 		"breadcrumbs" : [
 
@@ -94,7 +95,7 @@ globalNav.init(
 							"en" : "About Portal",
 							"it" : "Informazioni sul Portale"
 						},
-						"backUrl" : "/europeana/GlobalNav/apps/portal/index.html",
+						"backUrl" : "/apps/portal/index.html",
 						"items" : [
 							{
 								"label" : {
@@ -108,9 +109,8 @@ globalNav.init(
 									"en" : "Rights",
 									"it" : "Diritti"
 								},
-								"url"     : "/europeana/GlobalNav/apps/portal/rights/index.html",
-								"dataUrl" : "/europeana/GlobalNav/apps/portal/rights/index.html",
-								"xxbackUrl" : "/europeana/GlobalNav/apps/portal/index.html",													
+								"url"     : "/apps/portal/rights/index.html",
+								"dataUrl" : "/apps/portal/rights/index.html",
 								"items" : [
 									{
 										"label" : {
@@ -325,18 +325,18 @@ globalNav.init(
 	
 	"js" : {
 		"scripts" : [
-		   "/europeana/GlobalNav/scripts/EuAccessibility.js",
-		   "/europeana/GlobalNav/scripts/EuGlobalMenu.js",
-		   "/europeana/GlobalNav/scripts/EuMenuBar.js"
+		   "/scripts/EuAccessibility.js",
+		   "/scripts/EuGlobalMenu.js",
+		   "/scripts/EuMenuBar.js"
 		]
 	},
 	
 	"css" : {
 		
 		"stylesheets" : [
-			"/europeana/GlobalNav/styles/application2.css",
-			"/europeana/GlobalNav/styles/EuGlobalMenu2.css",
-			"/europeana/GlobalNav/styles/GlobalNavMenuBar.css"
+			"/styles/application2.css",
+			"/styles/EuGlobalMenu2.css",
+			"/styles/GlobalNavMenuBar.css"
 		]
 		
 	}

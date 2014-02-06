@@ -16,7 +16,7 @@ var globalNav = function(){
     // load all css
     var initCSS = function(config){
     	$.each(config.stylesheets, function(i, stylesheet){
-        	$('head').append('<link rel="stylesheet" href="' + stylesheet + '"/>');    		
+        	$('head').append('<link rel="stylesheet" href="' + globalNavServer + stylesheet + '"/>');    		
     	});
     };
     
@@ -144,7 +144,7 @@ var globalNav = function(){
     	var recursiveLoad = function(index){
     		    		
  		   if(config.scripts[index]){
- 	          $.getScript(config.scripts[index], function(){
+ 	          $.getScript(globalNavServer + config.scripts[index], function(){
             	recursiveLoad(index + 1);        		   
  	          }).fail(function(jqxhr, settings, exception) {
  	        	console.log( "Error: " + exception );
@@ -276,7 +276,7 @@ var globalNav = function(){
           initJS(data.js);
           
           if(data.pulldownConf){
-  	  		$.getJSON(data.pulldownConf + "?callback=?")
+  	  		$.getJSON(globalNavServer + data.pulldownConf + "?callback=?")
 			.fail(
 			    function(e){
 			    	//alert("Error " + JSON.stringify(e));

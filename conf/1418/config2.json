@@ -1,10 +1,10 @@
 globalNav.init(
 {
-	"pulldownConf" : "http://localhost/europeana/GlobalNav/conf/global.json",
+	"pulldownConf" : "/conf/global.json",
 		
 	"html" : {
 
-		"home" : "http://localhost/europeana/GlobalNav/apps/1418/index.html",
+		"home" : "/apps/1418/index.html",
 		
 		"left"  : [
 			
@@ -299,18 +299,18 @@ globalNav.init(
 	
 	"js" : {
 		"scripts" : [
-		   "http://localhost/europeana/GlobalNav/scripts/EuAccessibility.js",
-		   "http://localhost/europeana/GlobalNav/scripts/EuGlobalMenu.js",
-		   "http://localhost/europeana/GlobalNav/scripts/EuMenuBar.js"
+		   "/scripts/EuAccessibility.js",
+		   "/scripts/EuGlobalMenu.js",
+		   "/scripts/EuMenuBar.js"
 		]
 	},
 	
 	"css" : {
 		
 		"stylesheets" : [
-			"http://localhost/europeana/GlobalNav/styles/application2.css",
-			"http://localhost/europeana/GlobalNav/styles/EuGlobalMenu2.css",
-			"http://localhost/europeana/GlobalNav/styles/GlobalNavMenuBar.css"
+			"/styles/application2.css",
+			"/styles/EuGlobalMenu2.css",
+			"/styles/GlobalNavMenuBar.css"
 		]
 		
 	}	

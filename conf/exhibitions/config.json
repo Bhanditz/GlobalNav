@@ -306,16 +306,16 @@ globalNav.init(
 	
 	"js" : {
 		"scripts" : [		
-		   "http://localhost/europeana/GlobalNav/scripts/EuAccessibility.js",
-		   "http://localhost/europeana/GlobalNav/scripts/EuGlobalMenu.js"
+		   "scripts/EuAccessibility.js",
+		   "scripts/EuGlobalMenu.js"
 		]
 	},
 	
 	"css" : {
 		
 		"stylesheets" : [
-			"http://localhost/europeana/GlobalNav/styles/application.css",
-			"http://localhost/europeana/GlobalNav/styles/EuGlobalMenu.css"
+			"styles/application.css",
+			"styles/EuGlobalMenu.css"
 		]
 		
 	},
