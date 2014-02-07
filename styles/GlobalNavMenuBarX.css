@@ -49,11 +49,21 @@ html, body{
 	padding:		0.25em 1em;
 	outline:		0;
 	position:  		relative;
-	white-space:	nowrap;	
-	
+	white-space:	nowrap;
 	text-decoration:none;
 	z-index:    	1;
+	line-height:	1.5em;
 }
+
+.global-nav-menu-bar .menu-item.can-wrap,
+.global-nav-menu-bar .back-item.can-wrap,
+.global-nav-menu-bar .more-item.can-wrap,
+.global-nav-menu-bar .more-menu-item.can-wrap,
+
+.global-nav-menu-bar .link-label.can-wrap{
+	white-space:	normal;
+}
+
 
 /*
 .global-nav-menu-bar .home-item{
@@ -88,7 +98,8 @@ html, body{
 .global-nav-menu-bar .menu-item.active .link-label,
 .global-nav-menu-bar .more-item.active .link-label,
 .global-nav-menu-bar .back-item.active .link-label{
-	text-decoration:	underline;
+	XXXtext-decoration:	underline;
+	border-bottom: 5px solid #B13030;
 }
 
 
@@ -138,36 +149,50 @@ html, body{
 	width:1px;
 }
 
+
 @media only screen and ( min-width:28em ){
 
 	#phone-detect{
 		width:0;
 	}
 
+
 	body{
 		background-color: orange;
 	}
 
-	.global-nav-menu-bar{
+	/*
+	body.desktop
+	*/
+	 .global-nav-menu-bar{
 		border-radius:		0;
 	}
 
+	/*
+	body.desktop
+	*/
 	.global-nav-menu-bar .menu-item,
 	.global-nav-menu-bar .more-item,
 	.global-nav-menu-bar .back-item{
 		margin-top:		0;
-		xxxborder:			1px solid #d6d6d6;
 	}
 	
+	/*
+	body.desktop
+	*/
 	.global-nav-menu-bar .section{
 		background-color: white;
 		float:			  left;
 		max-width:		100%; /* chrome YYY */
 	}
 
+	/*
+	body.desktop
+	*/
 	.global-nav-menu-bar .more{
 		padding: 1em;
 	}
+
 }
 
 

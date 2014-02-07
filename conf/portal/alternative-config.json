@@ -16,22 +16,22 @@ globalNav.init(
 				
 					{
 						"label" : {
-							"en" : "Search",
+							"en" : "Run a Search",
 							"it" : "Cerca"
 						},
-						"url"     : "/apps/portal/search.html?conf=conf-aleternative.json",
+						"url"     : "/apps/portal/search.html?conf=portal/alternative-config.json",
 						"dataUrl" : "/apps/portal/items/"
 					},
 					{
 						"menu" : true,
 						"label" : {
-							"en" : "Popular Searches",
+							"en" : "Most Popular Searches",
 							"it" : "Cerchi Populari"
 						},
 						"items" : [
 							{
 								"label" : {
-									"en" : "Cordoba Cathedral",
+									"en" : "Cordoba Cathedral in Spain",
 									"it" : "Il Duomo do Cordoba"
 								}
 							},
@@ -215,8 +215,8 @@ globalNav.init(
 	"css" : {
 		
 		"stylesheets" : [
-			"/styles/application2.css",
-			"/styles/EuGlobalMenu2.css",
+			"/styles/applicationX.css",
+			"/styles/EuGlobalMenuX.css",
 			"/styles/GlobalNavMenuBarX.css"
 		]
 		

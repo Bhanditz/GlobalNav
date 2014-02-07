@@ -123,10 +123,12 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		
 		self.activeId      = id;
 		self.activeHash    = hash;
+		alert('selection made');
 		self.showLess();
 		
 		if(self.callback){
 			// TODO delete this inherited code?
+			alert('callback');
 			self.callback(id, hash);
 		}
 	};
@@ -245,6 +247,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		     divs also serves to show only the lowest (deepest) active menu
 		     items
 		*/
+		alert('show less');
 		
 		var displayClassItems = self.isPhone() ? 'block' : 'inline-block';//'table-cell';
 		
@@ -266,7 +269,9 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			ob.showLess(true);
 		});
 		
-		if(typeof isRecurse == 'undefined'){			
+		if(typeof isRecurse == 'undefined'){	
+		//	alert('do more (self.parent should be undefined ' + typeof self.parent + ')' );
+		//return;	
 			if(self.initialised && self.isPhone()){
 				self.transitionForward(true);
 				setTimeout(self.transitionForward, 1);
@@ -301,9 +306,13 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		}
 	};
 	
+	/* THE MORE MENU */
 	self.buildMore = function(){
+		
 		var maxRows     = 3;
 		var items       = self.getItems();
+		
+		// TODO hardcoded numbers???
 		var colW        = self.getWidestItem(items) + 24 ; // should include more button in this test
 		var cmpW        = self.el.width()           - 24;
 		
@@ -351,7 +360,16 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 							var index = itemsAdded;
 							proxyItem.click(function(e){
 								//moreMenu.css('display', 'none');
-								self.itemObjects[index].click(e);
+								
+								// menu action or follow link
+								var href = self.itemObjects[index].getHref();
+								if( href.length ){
+									// this is a relative path
+									document.location.href = href;
+								}
+								else{
+									self.itemObjects[index].click(e);									
+								}
 							});						
 						}();
 						itemsAdded++;
@@ -526,12 +544,13 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			self.el.parent().addClass('active')
 		}
 	};
-	
+	/*
 	self.resetMoreItem = function(moreItem){
 		//return;
 		moreItem = moreItem ? moreItem : self.getMoreItem();
 		moreItem.css('width', 'auto');
 	};
+	*/
 	
 	self.resize = function(){
 		
@@ -542,7 +561,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		var isPhone      = self.isPhone();
 		var displayClass = isPhone ? 'block' : 'inline-block';
 		var menuBack     = self.getBackItem();
-		var menuBarMore  = self.getMoreItem();
+		var moreItem  = self.getMoreItem();
 		var menuBarItems = self.getItems();
 		var moreMenu     = self.getMoreMenu()
 			
@@ -558,44 +577,67 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 				menuBack.css('display', 'block');
 			}			
 
+			menuBarItems.addClass('can-wrap');
+
 			menuBarItems.css('display', displayClass);
 			moreMenu    .css('display', 'none');
-			menuBarMore .css('display', 'none');
+			moreItem    .css('display', 'none');
 
 			// hide everything that isn't at the bottom of the active chain
 			self.hideInactive();
 		}
 		else{
+			
+			menuBarItems.removeClass('can-wrap');
+
+			
 			moreMenu    .css('display', 'none');
-			menuBarMore .css('display', 'none');
+			moreItem .css('display', 'none');
 			menuBack    .css('display', 'none');			
 			menuBarItems.css('display', displayClass);
 
+//if(typeof self.parent == 'undefined'){
+//	alert('FIRST TEST: self.rowFits ' + self.rowFits());				
+//}
+
+			
 			if(!self.rowFits()){
 				
-				menuBarMore.css('display', displayClass);
+				moreItem.css('display', displayClass);
 				menuBarItems.css('display', 'none');
+				
+
 				
 				$.each(menuBarItems, function(i, ob){
 					$(ob).css('display', displayClass);
 
 					var fits = self.rowFits();
-					
+					//if(typeof self.parent == 'undefined'){
+					//	alert('self.rowFits ' + fits);				
+					//}
+										
 					// console.log('fits? ' + fits + ' - \n' + $(ob).html() + '\nparentW = ' + ( $('.main>.global-nav-menu-bar').width()  ) + '\n  /end fits'  );
 
 					if(!fits){
-						$(ob).css('display', 'none');						
-						return false;
+						// menu should show at least one item
+						if(i>0){
+							$(ob).css('display', 'none');						
+						}
+						return false;							
 					}
 				});
+				
+				
 				
 				if(showingMore){
 					self.showMore();
 				}
 				else{
-					menuBarMore.css('display', displayClass);
+			//		alert('x')
+					moreItem.css('display', displayClass);
 					menuBack   .css('display', 'none');
 				}
+				
 			}
 		}
 		
@@ -606,7 +648,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		/* if showing more item make it fill all remaining width */
 
 		return;
-
+/*
 		if(menuBarMore.css('display') == displayClass ){
 			self.resetMoreItem(menuBarMore);
 			var totalWidth = 0;
@@ -623,6 +665,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			console.log('self.el.width() = ' + self.el.width() + ', moreItemWidth = ' + moreItemWidth);
 			menuBarMore.css('width', moreItemWidth + 'px');
 		}
+*/
 	};
 	
 	// timeout needed since recursive functions use the return
