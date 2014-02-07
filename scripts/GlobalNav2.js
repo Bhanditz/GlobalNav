@@ -222,7 +222,7 @@ var globalNav = function(){
 
     	if(config.pulldown.items){
         	$.each(config.pulldown.items, function(i, ob){
-        		pullDownList.append('<li><a ' + (ob.url ? 'href="' + ob.url + '" ' : '') + '>' + ob.label[locale] + '</a></li>')
+        		pullDownList.append('<li><a ' + (ob.url ? 'href="' + globalNavServer + ob.url + '" ' : '') + '>' + ob.label[locale] + '</a></li>')
         	});        		
     	}
     	

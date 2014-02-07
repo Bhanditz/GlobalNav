@@ -3,9 +3,14 @@ html, body{
 	padding: 0;
 } 
 
+.eu-global-nav{
+	font-size:   2em !important;
+}
+
 .global-nav-menu-bar{
 
 	font-size:   1em !important;
+	
 	line-height: 1em;
 
 	position:			relative;

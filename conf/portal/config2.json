@@ -52,15 +52,15 @@ globalNav.init(
 							"en" : "Portal Home",
 							"it" : "Portale - Home"
 						},
-						"url" : "/europeana/GlobalNav/apps/portal/index.html"
+						"url" : "/apps/portal/index.html"
 					},
 					{
 						"label" : {
 							"en" : "Search",
 							"it" : "Cerca"
 						},
-						"url"     : "/europeana/GlobalNav/apps/portal/search.html",
-						"dataUrl" : "/europeana/GlobalNav/apps/portal/items/"
+						"url"     : "/apps/portal/search.html",
+						"dataUrl" : "/apps/portal/items/"
 					},
 					{
 						"menu" : true,
@@ -117,21 +117,21 @@ globalNav.init(
 											"en" : "Rights 1",
 											"it" : "Diritti 1"
 										},
-										"url" : "/europeana/GlobalNav/apps/portal/rights/rights1.html",
+										"url" : "/apps/portal/rights/rights1.html",
 									},
 									{
 										"label" : {
 											"en" : "Rights 2",
 											"it" : "Diritti 2"
 										},
-										"url" : "/europeana/GlobalNav/apps/portal/rights/rights2.html",
+										"url" : "/apps/portal/rights/rights2.html",
 									},
 									{
 										"label" : {
 											"en" : "Rights 3",
 											"it" : "Diritti 3"
 										},
-										"url" : "/europeana/GlobalNav/apps/portal/rights/rights3.html",
+										"url" : "/apps/portal/rights/rights3.html",
 									},
 									{
 										"menu" : true,
@@ -140,8 +140,8 @@ globalNav.init(
 											"it" : "Diritti 4"
 										},
 										
-										"url" : "/europeana/GlobalNav/apps/portal/rights/rights4.html",
-										"backUrl" : "/europeana/GlobalNav/apps/portal/rights/index.html",
+										"url" : "/apps/portal/rights/rights4.html",
+										"backUrl" : "/apps/portal/rights/index.html",
 										"items" : [
 										{
 											"label" : {
