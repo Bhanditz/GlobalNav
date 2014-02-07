@@ -7,39 +7,6 @@ globalNav.init(
 		
 		"home" : "/apps/portal/index.html",
 		
-		"breadcrumbs" : [
-
-			{
-				"page"   : "apps/portal/rights/index.html",
-				"crumbs" : [
-
-					{
-						"label" : {
-							"en" : "Crumb 1",
-							"it" : "Bricciola 1"
-						},
-						"url" : "http://www.google.co.uk"
-					},
-					{
-						"label" : {
-							"en" : "Crumb 2",
-							"it" : "Bricciola 2"
-						},
-						"url" : "http://www.google.co.uk"
-					},
-					{
-						"label" : {
-							"en" : "Crumb 3",
-							"it" : "Bricciola 3"
-						},
-						"url" : "http://www.google.co.uk"
-					}		
-				
-				]
-			}
-			
-		],
-		
 		"left"  : [
 			
 							
@@ -49,17 +16,10 @@ globalNav.init(
 				
 					{
 						"label" : {
-							"en" : "Portal Home",
-							"it" : "Portale - Home"
-						},
-						"url" : "/apps/portal/index.html"
-					},
-					{
-						"label" : {
 							"en" : "Search",
 							"it" : "Cerca"
 						},
-						"url"     : "/apps/portal/search.html?conf=portal/alternative-config.json",
+						"url"     : "/apps/portal/search.html?conf=conf-aleternative.json",
 						"dataUrl" : "/apps/portal/items/"
 					},
 					{
@@ -86,85 +46,6 @@ globalNav.init(
 									"en" : "Leonardo da Vinci",
 									"it" : "Leonardo da Vinci"
 								}
-							}
-						]
-					},
-					{
-						"menu" : true,
-						"label" : {
-							"en" : "About Portal",
-							"it" : "Informazioni sul Portale"
-						},
-						"backUrl" : "/apps/portal/index.html",
-						"items" : [
-							{
-								"label" : {
-									"en" : "Terms of Use",
-									"it" : "Termini del Uso"
-								}
-							},
-							{
-								"menu" : true,
-								"label" : {
-									"en" : "Rights",
-									"it" : "Diritti"
-								},
-								"url"     : "/apps/portal/rights/index.html",
-								"dataUrl" : "/apps/portal/rights/index.html",
-								"items" : [
-									{
-										"label" : {
-											"en" : "Rights 1",
-											"it" : "Diritti 1"
-										},
-										"url" : "/apps/portal/rights/rights1.html",
-									},
-									{
-										"label" : {
-											"en" : "Rights 2",
-											"it" : "Diritti 2"
-										},
-										"url" : "/apps/portal/rights/rights2.html",
-									},
-									{
-										"label" : {
-											"en" : "Rights 3",
-											"it" : "Diritti 3"
-										},
-										"url" : "/apps/portal/rights/rights3.html",
-									},
-									{
-										"menu" : true,
-										"label" : {
-											"en" : "Rights 4",
-											"it" : "Diritti 4"
-										},
-										
-										"url" : "/apps/portal/rights/rights4.html",
-										"backUrl" : "/apps/portal/rights/index.html",
-										"items" : [
-										{
-											"label" : {
-												"en" : "Rights 4.1",
-												"it" : "Diritti 4.2"
-											}										},
-										{
-											"label" : {
-												"en" : "Rights 4.2",
-												"it" : "Diritti 4.2"
-											}		
-										}]							
-										
-									}
-								]								
-								
-							},
-							{
-								"label" : {
-									"en" : "Jobs",
-									"it" : "Opportunita' di Lavoro"
-								},
-								"value" : ""		
 							}
 						]
 					},
@@ -336,7 +217,7 @@ globalNav.init(
 		"stylesheets" : [
 			"/styles/application2.css",
 			"/styles/EuGlobalMenu2.css",
-			"/styles/GlobalNavMenuBar.css"
+			"/styles/GlobalNavMenuBarX.css"
 		]
 		
 	}

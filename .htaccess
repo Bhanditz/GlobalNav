@@ -1,23 +1,10 @@
 RewriteEngine On
 #RewriteBase /
 
-#RewriteRule ^/?$ /cgi-bin/script.cgi?123 [L]
-
-
-
-
-#RewriteRule ^(.*)\.html$ http://global-nav/cgi-bin/head.pl?app=portal 
-
 
 
 RewriteCond %{REQUEST_URI} !(.*\.(png|jpg|gif|woff|ttf|css|js|json|pl))$ [NC]
-#RewriteRule (.*) cgi-bin/head.pl?app=portal [PT,QSA,L]
 
-# silent
+# silent redirect
 RewriteRule ^(.*) cgi-bin/head.pl?url=$1  [PT,QSA,L]
 
-# noisy
-#RewriteRule ^(.*) http://global-nav/cgi-bin/head.pl?app=1418
-
-
-#RewriteRule ^(.*) http://global-nav/cgi-bin/head.pl?url=$1
