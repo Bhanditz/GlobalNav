@@ -18,7 +18,7 @@ var MenuItem = function (elIn, parentIn) {
 		else{
 			self.a .addClass('active');
 			self.el.addClass('active');
-			self.parent.selectionMade(self.el.attr('id'), self.a.attr('href') );
+			self.parent.selectionMade();
 		}
 	};
 	
@@ -89,20 +89,31 @@ var MenuItem = function (elIn, parentIn) {
 	
 
 var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
-	
 	var self		 = this;
 	self.parent      = parent;
 	self.recLevel    = recLevel ? recLevel : 0;
 	self.isRoot      = self.recLevel == 0;
 	self.itemObjects = [];
 	self.el			 = elIn;
-	self.activeId	 = '';
-	
-	self.activeHash	 = '';  /*  ??? */
-	
+		
 	self.callback	 = callbackIn;
 	self.subMenus    = [];	
 	self.initialised = false;
+	
+	/* On desktops, the minimum number that will be shown before triggering pseudoPhoneMode.
+	 * 
+	 * - if true then phone layout is used
+	 * 
+	 * - if a top level menu can't fit but a child menu can fit we should remain in pseudoPhoneMode
+	 * 
+	 * - conversely, if a top level menu can fit but a child menu can't we switch to phone mode if 
+	 *   the user goes into that submenu, and exit it when they come back up
+	 *   
+	 *  */
+	
+	self.minItemsInline  = 1;	
+	self.pseudoPhoneMode = false;
+	
 	
 	self.el.addClass('global-nav-menu-bar');
 
@@ -117,41 +128,29 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	
 	// functions
 
-	self.selectionMade = function(id, hash){
-		
-		//self.getMoreItem().css('width', 'auto');
-		
-		self.activeId      = id;
-		self.activeHash    = hash;
-		alert('selection made');
+	self.selectionMade = function(){
 		self.showLess();
-		
-		if(self.callback){
-			// TODO delete this inherited code?
-			alert('callback');
-			self.callback(id, hash);
-		}
 	};
 	
-	self.openItem = function(hash){
-
-		// programmatic open
-		if(hash != self.activeHash){
-			self.el.find('.menu-item').each(function (i, ob) {
-				ob = $(ob);
-				if( ob.attr('href') == hash ){
-					self.itemObjects[i].open();
-					return;
-				}
-			});					
-		}
-	};
 	
 	self.isPhone = function(){
+		//if(self.pseudoPhoneMode){
+		//	return true;
+		//}
 		var phoneDiv = $('#phone-detect').length ? $('#phone-detect') : $('<div id="phone-detect" style="position:absolute;top:-1000px">').appendTo('body');
 		var res = phoneDiv.width() == 1;
 		//console.log('isPhone = ' + res);
 		return res;		
+	};
+
+	self.isPseudoPhoneMode = function(){
+		var parent = self.getParent();
+		if(parent && parent.isPseudoPhoneMode()){
+		//	console.log('Parent - returning ps TRUE')
+			return true;
+		}
+		//console.log('no parent - returning ps ' + self.pseudoPhoneMode)
+		return self.pseudoPhoneMode;
 	};
 
 	self.rowFits = function(){
@@ -159,10 +158,10 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		
 		var result       = true;
 
-		var menuBar      = self.el;
-		var menuBarInner = menuBar.children('.menu-bar-inner');
-		var active       = menuBarInner.children('.section.active');
-		var borderHeight = 4;
+		var menuBar       = self.el;
+		var menuBarInner  = menuBar.children('.menu-bar-inner');
+		var active        = menuBarInner.children('.section.active');
+		var paddingHeight = 2 * parseInt(menuBarInner.find('.menu-item').first().css('padding-top'));
 		
 		// limit row height to one 
 		menuBar.addClass('measure-mode');
@@ -170,7 +169,13 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 
 		//console.log(	menuBarInner[0].offsetHeight + " > " +  (menuBar.height() + borderHeight)   );
 		
-		if(	menuBarInner[0].offsetHeight > menuBar.height() + borderHeight ){
+		if(	menuBarInner[0].offsetHeight > menuBar.height() + paddingHeight ){
+			
+			if(self.isRoot){	
+				
+				console.log('fitsFalse:  ' + menuBarInner[0].offsetHeight + ' > ' +  menuBar.height() + ' +  '  + paddingHeight );
+			}
+			
 			result = false;
 		}
 
@@ -204,7 +209,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	self.getParent = function(){
 		return self.parent;			
 	};
-	
+		
 	self.getWidestItem = function(items){
 		var max = 0;
 		$.each(items, function(i, ob){
@@ -229,7 +234,8 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	self.showMore = function(e){
 		// close other open menus
 		self.closeItems();
-		self.getBackItem().css('display', self.isPhone() ? 'block' : 'none');
+
+		self.getBackItem().css('display', (self.isPhone() || self.isPseudoPhoneMode()) ? 'block' : 'none');
 		self.getMoreItem().css('display', 'none');
 
 		self.buildMore();
@@ -247,44 +253,32 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		     divs also serves to show only the lowest (deepest) active menu
 		     items
 		*/
-		alert('show less');
 		
-		var displayClassItems = self.isPhone() ? 'block' : 'inline-block';//'table-cell';
+		var displayClassItems = (self.isPhone() || self.isPseudoPhoneMode()) ? 'block' : 'inline-block';//'table-cell';
+		
+		console.log('showLess (r=' + recLevel + ') will use class ' + displayClassItems )
 		
 		self.getMoreMenu().css('display', 'none');
 		self.getBackItem().css('display', 'none');
 		self.getItems()   .css('display', displayClassItems);
-		
-		/* resize has to happen before recurse to trim visible items */
-		/*
-		self.resize();
-		
-		$.each(self.subMenus, function(i, ob){
-			ob.showLess(true);
-		});
-		*/
-		
+				
 		/* perhaps only at root level - consider moving into the next block: */
 		$.each(self.subMenus, function(i, ob){
 			ob.showLess(true);
 		});
 		
 		if(typeof isRecurse == 'undefined'){	
-		//	alert('do more (self.parent should be undefined ' + typeof self.parent + ')' );
-		//return;	
-			if(self.initialised && self.isPhone()){
+			// transition on phones / pseudoPhone mode
+			if(self.initialised && (self.isPhone() || self.isPseudoPhoneMode())  ){
 				self.transitionForward(true);
 				setTimeout(self.transitionForward, 1);
 			}
-			self.resize();
 		}
-
-
-		
+		self.resize();
 	};
 
 	self.transitionBack = function(setup){
-		setup ?	self.el.addClass('pre-transition-back') : self.el.removeClass('pre-transition-back');	
+		setup ?	self.el.addClass('pre-transition-back') : self.el.removeClass('pre-transition-back');		
 	};
 
 	self.transitionForward = function(setup){
@@ -296,13 +290,17 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		}		
 	};
 	
-	/* only called from mobile view */
+	/* Mobile / pseudoPhone */
+	
 	self.goBack = function(e){
 		if(typeof $(e.target).attr('href') == 'undefined'){
 			self.parent.closeItems();
 			self.parent.transitionBack(true);
 			self.parent.resize();
 			self.parent.transitionBack();			
+		}
+		else{
+			console.log('back does nothing');
 		}
 	};
 	
@@ -361,6 +359,8 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 							proxyItem.click(function(e){
 								//moreMenu.css('display', 'none');
 								
+
+								
 								// menu action or follow link
 								var href = self.itemObjects[index].getHref();
 								if( href.length ){
@@ -401,22 +401,9 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		var subMenu = $(ob).children('.global-nav-menu-bar');
 		if(subMenu.length){
 			self.subMenus.push(new EuMenuBar(subMenu, self.recLevel + 1, self));
-			console.log('pushed sub');
 		}
 	});
 
-	/*
-	if (self.itemObjects.length>0) {
-		setTimeout(function(){
-			if(hash){
-				self.openTab(hash);
-			}
-			else{
-				self.openTabAtIndex(0);				
-			}
-		}, 1);
-	}
-	*/
 	self.hideInactive = function(){
 			
 		var show = ( self.isRoot || self.el.closest('.section').hasClass('active') ) && self.el.find('.section.active').length == 0;
@@ -544,13 +531,6 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			self.el.parent().addClass('active')
 		}
 	};
-	/*
-	self.resetMoreItem = function(moreItem){
-		//return;
-		moreItem = moreItem ? moreItem : self.getMoreItem();
-		moreItem.css('width', 'auto');
-	};
-	*/
 	
 	self.resize = function(){
 		
@@ -559,21 +539,25 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		}
 		
 		var isPhone      = self.isPhone();
-		var displayClass = isPhone ? 'block' : 'inline-block';
+		var pseudoPhone  = self.isPseudoPhoneMode();
+		var displayClass = (isPhone || pseudoPhone) ? 'block' : 'inline-block';
 		var menuBack     = self.getBackItem();
-		var moreItem  = self.getMoreItem();
+		var moreItem     = self.getMoreItem();
 		var menuBarItems = self.getItems();
-		var moreMenu     = self.getMoreMenu()
-			
+		var moreMenu     = self.getMoreMenu()			
 		var showingMore  = isPhone ? false : moreMenu.is(":visible");
 		
-		//console.log("showingMore = " + showingMore + ", isPhone = " + isPhone);
-		
-
-		if(isPhone){
-		
-			var showBack = !self.isRoot && self.el.find('.section.active').length == 0;
+		var phoneBehaviour = function(){
+			var dataDepth = parseInt(menuBack.data('depth'));
+			var showBack =  dataDepth>0;
+			
 			if(showBack){
+				$('.global-nav-menu-bar .back-item').each(function(i, ob){
+					ob = $(ob);
+					if( parseInt(ob.data('depth')) < dataDepth ){
+						ob.css('display', 'none');
+					}
+				});
 				menuBack.css('display', 'block');
 			}			
 
@@ -585,59 +569,57 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 
 			// hide everything that isn't at the bottom of the active chain
 			self.hideInactive();
+		};
+		
+		if(isPhone || pseudoPhone){
+			phoneBehaviour();
 		}
 		else{
-			
 			menuBarItems.removeClass('can-wrap');
-
-			
 			moreMenu    .css('display', 'none');
-			moreItem .css('display', 'none');
-			menuBack    .css('display', 'none');			
+			moreItem    .css('display', 'none');
+			menuBack    .css('display', 'none');
 			menuBarItems.css('display', displayClass);
 
-//if(typeof self.parent == 'undefined'){
-//	alert('FIRST TEST: self.rowFits ' + self.rowFits());				
-//}
-
+			self.pseudoPhoneMode = false;
 			
 			if(!self.rowFits()){
 				
+				// show what we can, or trigger pseudo-phone mode if that's not enoguh
 				moreItem.css('display', displayClass);
 				menuBarItems.css('display', 'none');
 				
-
-				
 				$.each(menuBarItems, function(i, ob){
+					
+					// try and fit one item at a time
 					$(ob).css('display', displayClass);
-
 					var fits = self.rowFits();
-					//if(typeof self.parent == 'undefined'){
-					//	alert('self.rowFits ' + fits);				
-					//}
-										
-					// console.log('fits? ' + fits + ' - \n' + $(ob).html() + '\nparentW = ' + ( $('.main>.global-nav-menu-bar').width()  ) + '\n  /end fits'  );
-
+					
 					if(!fits){
-						// menu should show at least one item
-						if(i>0){
-							$(ob).css('display', 'none');						
+						// if it doesn't fit hide it - assuming we haven't yet shown the minimum trigger the phone layout
+						if(self.minItemsInline > i){
+							self.pseudoPhoneMode = true;
+						}
+						else{
+							$(ob).css('display', 'none');
 						}
 						return false;							
 					}
 				});
 				
-				
-				
-				if(showingMore){
-					self.showMore();
+				if(! pseudoPhone ){
+					if(showingMore){
+						self.showMore();
+					}
+					else{
+						moreItem.css('display', displayClass);
+						menuBack   .css('display', 'none');
+					}
 				}
 				else{
-			//		alert('x')
-					moreItem.css('display', displayClass);
-					menuBack   .css('display', 'none');
+					displayClass = 'block';
+					phoneBehaviour();
 				}
-				
 			}
 		}
 		
@@ -646,9 +628,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		});	
 
 		/* if showing more item make it fill all remaining width */
-
-		return;
-/*
+		/*
 		if(menuBarMore.css('display') == displayClass ){
 			self.resetMoreItem(menuBarMore);
 			var totalWidth = 0;
@@ -665,7 +645,7 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 			console.log('self.el.width() = ' + self.el.width() + ', moreItemWidth = ' + moreItemWidth);
 			menuBarMore.css('width', moreItemWidth + 'px');
 		}
-*/
+		 */
 	};
 	
 	// timeout needed since recursive functions use the return
@@ -675,10 +655,6 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 	}, 1);
 	
 	return {
-		openItem : function(hash){
-			console.log("exposed openTab");
-			self.openItem(hash);
-		},
 		getItemObjects : function(){
 			return self.itemObjects;
 		},
@@ -721,6 +697,10 @@ var EuMenuBar = function(elIn, recLevel, parent, callbackIn, hash){
 		
 		transitionFwd : function(setup){
 			self.transitionFwd(setup);
+		},
+		
+		isPseudoPhoneMode : function(){
+			return self.isPseudoPhoneMode();
 		},
 		
 		resize : function(){

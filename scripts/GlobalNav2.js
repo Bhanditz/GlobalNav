@@ -29,14 +29,14 @@ var globalNav = function(){
         var topBarMain  = $('<div class="main">').appendTo(nav);
         //var topBarRight = $('<div class="right">').appendTo(nav);
         
-        var buildMenu = function(cmp, conf, isRecurse){
+        var buildMenu = function(cmp, conf, recLevel){
         	var menu = $(''
         	+ '<div class="global-nav-menu-bar"'
         	+ 	(conf.url     ? ' href="'     + conf.url     + '"' : '')
         	+ 	(conf.dataUrl ? ' data-url="' + conf.dataUrl + '"' : '')
         	+ '>'
         	+   '<div class="menu-bar-inner">'
-        	+     '<a title="Go up" class="back-item" ' + (conf.backUrl ? ' href="' + conf.backUrl + '" ' : '') + '>Back...</a>'
+        	+     '<a title="Go up" class="back-item" data-depth="' + recLevel + '" ' + (conf.backUrl ? ' href="' + conf.backUrl + '" ' : '') + '>Back...</a>'
         	+     '<div class="more" style=""></div>'
         	+     '<a title="Show more" class="more-item">More...</a>'
         	+     '</div>'
@@ -75,7 +75,7 @@ var globalNav = function(){
         			+ '</a>');
         		if(ob.menu){
         			menu.before('<div class="section"></div>');
-        			buildMenu(menu.prev('.section'), ob, true);
+        			buildMenu(menu.prev('.section'), ob, recLevel+1);
         		}
         	});
         	
@@ -88,7 +88,7 @@ var globalNav = function(){
 		// Main
 		$.each(config.left, function(key, val) {
 	        if(typeof val == 'object' && val.menu){
-        		buildMenu(topBarMain, val);
+        		buildMenu(topBarMain, val, 0);
 	        }
 	        // topBarLeft.append(divider());
 		});

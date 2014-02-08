@@ -97,8 +97,10 @@ html, body{
 
 .global-nav-menu-bar .menu-item.active .link-label,
 .global-nav-menu-bar .more-item.active .link-label,
-.global-nav-menu-bar .back-item.active .link-label{
-	XXXtext-decoration:	underline;
+.global-nav-menu-bar .back-item.active .link-label,
+.global-nav-menu-bar .menu-item:hover .link-label,
+.global-nav-menu-bar .more-item:hover .link-label,
+.global-nav-menu-bar .back-item:hover .link-label{
 	border-bottom: 5px solid #B13030;
 }
 

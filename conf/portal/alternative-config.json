@@ -16,7 +16,9 @@ globalNav.init(
 				
 					{
 						"label" : {
-							"en" : "Run a Search",
+							"zen" : "Make a quick and effortless Search in our amazing and well-stocked data archive",
+							"zzen" : "Make a quick Search",
+							"en" : "Search",
 							"it" : "Cerca"
 						},
 						"url"     : "/apps/portal/search.html?conf=portal/alternative-config.json",
@@ -25,7 +27,8 @@ globalNav.init(
 					{
 						"menu" : true,
 						"label" : {
-							"en" : "Most Popular Searches",
+							"enz" : "Most Popular Searches",
+							"en" : "Popular",
 							"it" : "Cerchi Populari"
 						},
 						"items" : [
@@ -36,15 +39,35 @@ globalNav.init(
 								}
 							},
 							{
+								"menu" : true,
 								"label" : {
 									"en" : "World War II",
 									"it" : "La Seconda Guerra Mondiale"
-								}
+								},
+								"items" : [
+									{
+										"label" : {
+											"en" : "FIRST",
+											"it" : "PRIMO"
+										}									
+									},
+									{
+										"label" : {
+											"en" : "SECOND",
+											"it" : "SECONDO"
+										}									
+									}
+								]
 							},
 							{
 								"label" : {
 									"en" : "Leonardo da Vinci",
 									"it" : "Leonardo da Vinci"
+								}
+							},
+							{
+								"label" : {
+									"en" : "Michaelangelo"
 								}
 							}
 						]
