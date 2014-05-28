@@ -2,7 +2,7 @@ var http = require("http");
 var url  = require("url");
 var fs   = require("fs");
 var path = require("path");
-
+var port = process.env.PORT || 3000;
 
 
 http.createServer(function(request, response) {
@@ -70,8 +70,9 @@ http.createServer(function(request, response) {
       
     });
   });
-}).listen(8888);
+}).listen(port);
+//}).listen(function(){ console.log('hello'); });
 
-console.log("Static file server running at\n  => http://127.0.0.1:8888/\nCTRL + C to shutdown");
+//console.log("Static file server running at\n  => http://127.0.0.1:8888/\nCTRL + C to shutdown");
 
   
