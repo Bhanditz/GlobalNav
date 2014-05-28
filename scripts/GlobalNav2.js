@@ -1,7 +1,8 @@
 var globalNav = function(){
 
-	var origConfig = false;
-	var href       = window.location.href;
+	var origConfig  = false;
+	var href        = window.location.href;
+	var initialised = false;
 
 	// set locale
 	var locale = href.match(/([?&])locale=[a-z]{2}/);
@@ -214,11 +215,17 @@ var globalNav = function(){
     
     var initPulldown = function(config){
     	
-		var pullDown       = $('<div class="pull-down closed"><ul></ul></div>').prependTo('body');
-		pullDown.after('<div class="opener-wrapper"><a class="opener">a</a></a>');
+    	var pullUp = 0;//1;
+    	
+		var pullDown       = $('<div class="pull-down closed"><ul></ul></div>');
+		
+		pullDown = pullUp ? pullDown.appendTo('body') : pullDown.prependTo('body');	// doesn't matter
+
+		//var pullDown       = $('<div class="pull-down closed"><ul></ul></div>').prependTo('body');
+		
+		pullUp ? pullDown.before('<div class="opener-wrapper"><a class="opener">a</a></a>') : pullDown.after('<div class="opener-wrapper"><a class="opener">a</a></a>');
 		
     	var pullDownList = pullDown.children('ul');
-    	
 
     	if(config.pulldown.items){
         	$.each(config.pulldown.items, function(i, ob){
@@ -231,17 +238,11 @@ var globalNav = function(){
 			if(pullDown.hasClass('closed')){
 				pullDown.removeClass('closed');
 				pullDown.addClass('opened');
-				
-				//$('.opener-wrapper').css('position', 'absolute');
 			}
 			else{
 				pullDown.removeClass('opened');
 				pullDown.addClass('closed');					
-				
-				//$('.opener-wrapper').css('position', 'fixed');
-
-			}
-			
+			}			
 		});
     	
 		// test utility
@@ -270,6 +271,12 @@ var globalNav = function(){
     
     return {
     	init: function(data){
+    	  
+    	  if(initialised){
+    		  return;
+    	  }
+    	  initialised = true;
+    	  
     	  origConfig = data;
   		  initCSS(data.css);
      	  initHtml(data.html);

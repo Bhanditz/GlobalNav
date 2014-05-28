@@ -24,6 +24,9 @@ if( scalar @paramStrings eq 1){
 
 	$url = @paramStrings[0];
 	$url =~ s/url=/\.\.\//;
+	my @pageUrlParts = split(/\&/, $url);
+	$url = @pageUrlParts[0];
+	
 	
 	open(INF, $url);
 	@pageData = <INF>;
