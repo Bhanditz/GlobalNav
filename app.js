@@ -5,7 +5,7 @@ var path = require("path");
 var port = process.env.PORT || 3000;
 
 
-http.createServer(function(request, response) {
+var server = http.createServer(function(request, response) {
 
   var uri        = url.parse(request.url).pathname
   var filename   = path.join(process.cwd(), uri);
@@ -63,16 +63,12 @@ http.createServer(function(request, response) {
       else{
     	  response.write(file, "binary");    	  
       }
-      //response.write('ext: ' + ext + ' serverName: ' + serverName + ', uri: ' + uri + ', params: ' + JSON.stringify(params));
-      //response.write('<br/><br/>');
-
       response.end();
       
     });
   });
 }).listen(port);
-//}).listen(function(){ console.log('hello'); });
 
-//console.log("Static file server running at\n  => http://127.0.0.1:8888/\nCTRL + C to shutdown");
+console.log('Server running on port ' + server.address().port);
 
   
